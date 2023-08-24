@@ -1,0 +1,958 @@
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="icon" type="image/x-icon" href="favicon.ico" />
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+		<link rel="stylesheet" href="./css/estilo.css?v=7">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+		<title>Agrokasa</title>
+	</head>
+	<body class="fondo-gris-1">
+
+		<div class="container-fluid fondo-verde-2">
+			<nav class="container">
+				<div class="row">
+					<div class="col-12">
+						<a class="cabecera-logo" href="index.html">
+							<img src="./img/site_logo.jpg" class="img-fluid" alt="Logo Agrokasa">
+						</a>
+					</div>
+				</div>
+			</nav>
+		</div>
+
+		<div class="container-fluid py-5 fondo-blanco">
+			<nav class="container">
+				<div class="row">
+					<div class="row">
+						<div class="col-12">
+							<h3 class="mt-2 mb-5 text-center color-verde-1"><b>Mantenimiento de Rango de Pesos</b></h3>
+						</div>
+					</div>
+				</div>					
+				<div class="row">
+					<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+						<label for="agk-filtro-cultivo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Cultivo</label>
+						<select id="agk-filtro-cultivo" class="form-select form-select-sm" aria-label="Cultivo" onchange="traerFiltrosHijosCultivo()">
+							<option value="" selected>Selecciona el cultivo</option>
+						</select>
+					</div>
+					<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+						<label for="agk-filtro-variedad" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Variedad</label>
+						<select id="agk-filtro-variedad" class="form-select form-select-sm" aria-label="Variedad">
+							<option value="" selected>Selecciona el cultivo</option>
+						</select>
+					</div>
+					<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+						<label for="agk-filtro-presentacion" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Presentación</label>
+						<select id="agk-filtro-presentacion" class="form-select form-select-sm" aria-label="Presentación">
+							<option value="" selected>Selecciona el cultivo</option>
+						</select>
+					</div>
+					<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+						<label for="agk-filtro-calibre" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Calibre</label>
+						<select id="agk-filtro-calibre" class="form-select form-select-sm" aria-label="Calibre">
+							<option value="" selected>Selecciona el cultivo</option>
+						</select>
+					</div>
+					<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+						<label for="agk-filtro-pais" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">País</label>
+						<select id="agk-filtro-pais" class="form-select form-select-sm" aria-label="País" onchange="traerFiltrosHijosPais()">
+							<option value="" selected>Selecciona el país</option>
+						</select>
+					</div>
+					<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+						<label for="agk-filtro-cliente" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Cliente</label>
+						<select id="agk-filtro-cliente" class="form-select form-select-sm" aria-label="Cliente">
+							<option value="" selected>Selecciona el país</option>
+						</select>
+					</div>
+				</div>
+				<div class="row mb-5">
+					<div class="col-12 form-group text-end">
+						<button id="boton-buscar" type="button" class="btn btn-primary btn-sm" onclick="buscar()">
+							<i class="bi bi-search me-1" aria-hidden="true"></i>Buscar
+						</button>
+						<button type="button" class="btn btn-success btn-sm" onclick="nuevo()" data-bs-toggle="modal" data-bs-target="#nuevo">
+							<i class="bi bi-plus-circle me-1" aria-hidden="true"></i>Nuevo
+						</button>
+					</div>
+				</div>
+
+				<div id="listado-rango-pesos"></div>
+
+
+				<nav id="paginacion">
+					<!-- <ul class="pagination pagination-sm">
+						<li id="pagina-1" class="page-item active" aria-current="page">
+							<span class="page-link fondo-verde-2 borde-verde-2">1</span>
+						</li>
+						<li class="page-item"><a class="page-link color-gris-3" href="#">2</a></li>
+						<li class="page-item"><a class="page-link color-gris-3" href="#">3</a></li>
+					</ul> -->
+				</nav>
+			</div>
+		</div>
+
+		<footer class="pie fondo-gris-1 py-4">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<a class="pie-logo" href="index.html">
+							<img src="./img/site_logo.jpg" class="img-fluid" alt="Logo Agrokasa">
+						</a>
+					</div>
+				</div>
+			</div>
+		</footer>
+				
+		<div id="spinner-div">
+			<div class="spinner-border text-light" role="status"></div>
+		</div>
+
+		<div class="modal fade" id="nuevo" tabindex="-1" aria-labelledby="nuevoLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content bordes-redondos">
+					<div class="modal-header">
+						<h5 class="modal-title color-verde-1" id="nuevoLabel"><b><i class="bi bi-plus-circle me-1" aria-hidden="true"></i>Nuevo</b></h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-12 mb-3 form-group">
+								<label for="agk-filtro-cultivo-n" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Cultivo</label>
+								<select id="agk-filtro-cultivo-n" class="form-select form-select-sm" aria-label="Cultivo" onchange="traerFiltrosHijosCultivoN()">
+									<option value="" selected>Selecciona el cultivo</option>
+								</select>
+							</div>
+							<div class="col-12 mb-3 form-group">
+								<label for="agk-filtro-variedad-n" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Variedad</label>
+								<select id="agk-filtro-variedad-n" class="form-select form-select-sm" aria-label="Variedad">
+									<option value="" selected>Selecciona el cultivo</option>
+								</select>
+							</div>
+							<div class="col-12 mb-3 form-group">
+								<label for="agk-filtro-presentacion-n" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Presentación</label>
+								<select id="agk-filtro-presentacion-n" class="form-select form-select-sm" aria-label="Presentación">
+									<option value="" selected>Selecciona el cultivo</option>
+								</select>
+							</div>
+							<div class="col-12 mb-3 form-group">
+								<label for="agk-filtro-calibre-n" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Calibre</label>
+								<select id="agk-filtro-calibre-n" class="form-select form-select-sm" aria-label="Calibre">
+									<option value="" selected>Selecciona el cultivo</option>
+								</select>
+							</div>
+							<div class="col-12 mb-3 form-group">
+								<label for="agk-filtro-pais-n" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">País</label>
+								<select id="agk-filtro-pais-n" class="form-select form-select-sm" aria-label="País" onchange="traerFiltrosHijosPaisN()">
+									<option value="" selected>Selecciona el país</option>
+								</select>
+							</div>
+							<div class="col-12 mb-3 form-group">
+								<label for="agk-filtro-cliente-n" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Cliente</label>
+								<select id="agk-filtro-cliente-n" class="form-select form-select-sm" aria-label="Cliente">
+									<option value="" selected>Selecciona el país</option>
+								</select>
+							</div>
+							<div class="col-12 mb-3 form-group">
+								<label for="agk-peso-minimo-n" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Peso mínimo</label>
+								<input type="number" name="agk-peso-minimo-n" id="agk-peso-minimo-n" class="form-control form-control-sm" placeholder="Ingrese el peso mínimo"/>
+							</div>
+							<div class="col-12 mb-3 form-group">
+								<label for="agk-peso-maximo-n" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Peso máximo</label>
+								<input type="number" name="agk-peso-maximo-n" id="agk-peso-maximo-n" class="form-control form-control-sm" placeholder="Ingrese el peso máximo"/>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button id="boton-cerrar-n" type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+							<i class="bi bi-x me-1" aria-hidden="true"></i>Cerrar
+						</button>
+						<button type="button" class="btn btn-primary btn-sm" onclick="guardarNuevo()">
+							<i class="bi bi-save me-1" aria-hidden="true"></i>Guardar
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="editar" tabindex="-1" aria-labelledby="editarLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content bordes-redondos">
+					<div class="modal-header">
+						<h5 class="modal-title color-verde-1" id="editarLabel"><b><i class="bi bi-pencil me-1" aria-hidden="true"></i>Editar</b></h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-12 mb-3 form-group">
+								<label for="agk-filtro-cultivo-e" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Cultivo</label>
+								<select id="agk-filtro-cultivo-e" class="form-select form-select-sm" aria-label="Cultivo" onchange="traerFiltrosHijosCultivoN()" disabled>
+									<option value="" selected></option>
+								</select>
+							</div>
+							<div class="col-12 mb-3 form-group">
+								<label for="agk-filtro-variedad-e" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Variedad</label>
+								<select id="agk-filtro-variedad-e" class="form-select form-select-sm" aria-label="Variedad" disabled>
+									<option value="" selected></option>
+								</select>
+							</div>
+							<div class="col-12 mb-3 form-group">
+								<label for="agk-filtro-presentacion-e" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Presentación</label>
+								<select id="agk-filtro-presentacion-e" class="form-select form-select-sm" aria-label="Presentación" disabled>
+									<option value="" selected></option>
+								</select>
+							</div>
+							<div class="col-12 mb-3 form-group">
+								<label for="agk-filtro-calibre-e" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Calibre</label>
+								<select id="agk-filtro-calibre-e" class="form-select form-select-sm" aria-label="Calibre" disabled>
+									<option value="" selected></option>
+								</select>
+							</div>
+							<div class="col-12 mb-3 form-group">
+								<label for="agk-filtro-pais-e" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">País</label>
+								<select id="agk-filtro-pais-e" class="form-select form-select-sm" aria-label="País" onchange="traerFiltrosHijosPaisN()" disabled>
+									<option value="" selected></option>
+								</select>
+							</div>
+							<div class="col-12 mb-3 form-group">
+								<label for="agk-filtro-cliente-e" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Cliente</label>
+								<select id="agk-filtro-cliente-e" class="form-select form-select-sm" aria-label="Cliente" disabled>
+									<option value="" selected></option>
+								</select>
+							</div>
+							<div class="col-12 mb-3 form-group">
+								<label for="agk-peso-minimo-e" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Peso mínimo</label>
+								<input type="number" name="agk-peso-minimo-e" id="agk-peso-minimo-e" class="form-control form-control-sm" placeholder="Ingrese el peso mínimo"/>
+							</div>
+							<div class="col-12 mb-3 form-group">
+								<label for="agk-peso-maximo-e" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Peso máximo</label>
+								<input type="number" name="agk-peso-maximo-e" id="agk-peso-maximo-e" class="form-control form-control-sm" placeholder="Ingrese el peso máximo"/>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button id="boton-cerrar-e" type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+							<i class="bi bi-x me-1" aria-hidden="true"></i>Cerrar
+						</button>
+						<button type="button" class="btn btn-primary btn-sm" onclick="guardarEditar()">
+							<i class="bi bi-save me-1" aria-hidden="true"></i>Guardar
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="eliminar" tabindex="-1" aria-labelledby="eliminarLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content bordes-redondos">
+					<div class="modal-header">
+						<h5 class="modal-title color-verde-1" id="eliminarLabel"><b><i class="bi bi-x me-1" aria-hidden="true"></i>Eliminar</b></h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-12 my-4">
+								<h6 class="text-center">¿Está seguro de eliminar este rango de pesos?</h6>
+								<input type="hidden" name="agk-index-eliminar" id="agk-index-eliminar" value="">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button id="boton-cerrar-eliminar" type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+							<i class="bi bi-x me-1" aria-hidden="true"></i>Cerrar
+						</button>
+						<button type="button" class="btn btn-danger btn-sm" onclick="guardarEliminar()">
+							<i class="bi bi-x me-1" aria-hidden="true"></i>Eliminar
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+	</body>
+	<script>
+
+		const info = {
+			direccion: 'https://localhost:7158'
+		}
+		let respuesta;
+		let paginaActual = 1;
+		let porPagina = 20;
+		let cantidadPaginas;
+		let limites;
+
+		$( document ).ready(function() {
+			traerFiltrosIniciales();
+		});
+
+		function traerFiltrosIniciales() {
+			$('#spinner-div').show();	
+			$.ajax({
+				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroCultivo',
+				type: 'POST',
+				data: JSON.stringify(),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					var cadena = '<option value="" selected>Selecciona el cultivo</option>';
+					for (var i = 0; i < data.length; i++) {
+						cadena += '<option value="' + data[i].codI_CULTIVO + '">' + data[i].nomB_CULTIVO + '</option>';							
+					}
+					$('#agk-filtro-cultivo').html(cadena);
+				}
+			});
+			$.ajax({
+				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroPais',
+				type: 'POST',
+				data: JSON.stringify(),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					var cadena = '<option value="" selected>Selecciona el país</option>';
+					for (var i = 0; i < data.length; i++) {
+						cadena += '<option value="' + data[i].codI_PAIS + '">' + data[i].nomB_PAIS + '</option>';							
+					}
+					$('#agk-filtro-pais').html(cadena);
+				}
+			});
+			
+			var codigoPais = {codiPais: ''};
+			$.ajax({
+				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroCliente',
+				type: 'POST',
+				data: JSON.stringify(codigoPais),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					var cadena = '<option value="" selected>Selecciona el cliente</option>' +
+						'<option value="*">Para cualquier cliente (*)</option>';
+					for (var i = 0; i < data.length; i++) {
+						cadena += '<option value="' + data[i].codI_CLIENTE + '">' + data[i].nomB_CLIENTE + '</option>';							
+					}
+					$('#agk-filtro-cliente').html(cadena);
+				},
+				complete: function () {
+					$('#spinner-div').hide();
+				}
+			});
+		}
+
+		function traerFiltrosHijosCultivo() {
+			$('#spinner-div').show();
+			var codigoCultivo = {codiCultivo: $('#agk-filtro-cultivo').val()};
+			$.ajax({
+				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroVariedad',
+				type: 'POST',
+				data: JSON.stringify(codigoCultivo),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					var cadena = '<option value="" selected>Selecciona la variedad</option>';
+					for (var i = 0; i < data.length; i++) {
+						cadena += '<option value="' + data[i].codI_VARIEDAD + '">' + data[i].nomB_VARIEDAD + '</option>';							
+					}
+					$('#agk-filtro-variedad').html(cadena);
+				},
+			});
+			$.ajax({
+				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroPresentacion',
+				type: 'POST',
+				data: JSON.stringify(codigoCultivo),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					var cadena = '<option value="" selected>Selecciona la presentación</option>';
+					for (var i = 0; i < data.length; i++) {
+						cadena += '<option value="' + data[i].codI_PRESENTACION + '">' + data[i].nomB_PRESENTACION + '</option>';							
+					}
+					$('#agk-filtro-presentacion').html(cadena);
+				},
+			});
+			$.ajax({
+				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroCalibre',
+				type: 'POST',
+				data: JSON.stringify(codigoCultivo),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					var cadena = '<option value="" selected>Selecciona el calibre</option>' +
+						'<option value="*">Para cualquier calibre (*)</option>';
+					for (var i = 0; i < data.length; i++) {
+						cadena += '<option value="' + data[i].codI_CALIBRE + '">' + data[i].nomB_CALIBRE + '</option>';							
+					}
+					$('#agk-filtro-calibre').html(cadena);
+				},
+				complete: function () {
+					$('#spinner-div').hide();
+				}
+			});
+		}		
+
+		function traerFiltrosHijosPais() {
+			$('#spinner-div').show();
+			var codigoPais = {codiPais: $('#agk-filtro-pais').val()};
+			$.ajax({
+				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroCliente',
+				type: 'POST',
+				data: JSON.stringify(codigoPais),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					var cadena = '<option value="" selected>Selecciona el cliente</option>' +
+						'<option value="*">Para cualquier cliente (*)</option>';
+					for (var i = 0; i < data.length; i++) {
+						cadena += '<option value="' + data[i].codI_CLIENTE + '">' + data[i].nomB_CLIENTE + '</option>';							
+					}
+					$('#agk-filtro-cliente').html(cadena);
+				},
+				complete: function () {
+					$('#spinner-div').hide();
+				}
+			});
+		}
+
+		function traerFiltrosHijosCultivoN() {
+			$('#spinner-div').show();
+			var codigoCultivo = {codiCultivo: $('#agk-filtro-cultivo-n').val()};
+			$.ajax({
+				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroVariedad',
+				type: 'POST',
+				data: JSON.stringify(codigoCultivo),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					var cadena = '<option value="" selected>Selecciona la variedad</option>';
+					for (var i = 0; i < data.length; i++) {
+						cadena += '<option value="' + data[i].codI_VARIEDAD + '">' + data[i].nomB_VARIEDAD + '</option>';							
+					}
+					$('#agk-filtro-variedad-n').html(cadena);
+				},
+			});
+			$.ajax({
+				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroPresentacion',
+				type: 'POST',
+				data: JSON.stringify(codigoCultivo),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					var cadena = '<option value="" selected>Selecciona la presentación</option>';
+					for (var i = 0; i < data.length; i++) {
+						cadena += '<option value="' + data[i].codI_PRESENTACION + '">' + data[i].nomB_PRESENTACION + '</option>';							
+					}
+					$('#agk-filtro-presentacion-n').html(cadena);
+				},
+			});
+			$.ajax({
+				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroCalibre',
+				type: 'POST',
+				data: JSON.stringify(codigoCultivo),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					var cadena = '<option value="" selected>Selecciona el calibre</option>' +
+						'<option value="*">Para cualquier calibre (*)</option>';
+					for (var i = 0; i < data.length; i++) {
+						cadena += '<option value="' + data[i].codI_CALIBRE + '">' + data[i].nomB_CALIBRE + '</option>';							
+					}
+					$('#agk-filtro-calibre-n').html(cadena);
+				},
+				complete: function () {
+					$('#spinner-div').hide();
+				}
+			});
+		}		
+
+		function traerFiltrosHijosPaisN() {
+			$('#spinner-div').show();
+			var codigoPais = {codiPais: $('#agk-filtro-pais-n').val()};
+			$.ajax({
+				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroCliente',
+				type: 'POST',
+				data: JSON.stringify(codigoPais),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					var cadena = '<option value="" selected>Selecciona el cliente</option>' +
+						'<option value="*">Para cualquier cliente (*)</option>';
+					for (var i = 0; i < data.length; i++) {
+						cadena += '<option value="' + data[i].codI_CLIENTE + '">' + data[i].nomB_CLIENTE + '</option>';							
+					}
+					$('#agk-filtro-cliente-n').html(cadena);
+				},
+				complete: function () {
+					$('#spinner-div').hide();
+				}
+			});
+		}
+
+		function buscar() {
+			$('#spinner-div').show();
+			var filtro = {
+				codiCliente: $('#agk-filtro-cliente').val(),
+				codiCultivo: $('#agk-filtro-cultivo').val(),
+				codiVariedad: $('#agk-filtro-variedad').val(),
+				codiPresentacion: $('#agk-filtro-presentacion').val(),
+				codiCalibre: $('#agk-filtro-calibre').val()
+			};
+			$.ajax({
+				url: info.direccion + '/api/Mantenimiento/ObtenerListadoMantenimiento',
+				type: 'POST',
+				data: JSON.stringify(filtro),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					console.log(data);
+					respuesta = data;
+					paginaActual = 1;
+					/*var cadena;
+					if(respuesta.length > 0) {
+						cadena = '<div class="table-responsive">' +
+							'<table class="table table-striped table-hover table-sm table-bordered">' +
+								'<thead>' +
+									'<tr>' +
+										'<th class="color-verde-1">País</th>' +
+										'<th class="color-verde-1">Cliente</th>' +
+										'<th class="color-verde-1">Cultivo</th>' +
+										'<th class="color-verde-1">Variedad</th>' +
+										'<th class="color-verde-1">Presentación</th>' +
+										'<th class="color-verde-1">Calibre</th>' +
+										'<th class="color-verde-1">Peso Mín.</th>' +
+										'<th class="color-verde-1">Peso Máx.</th>' +
+										'<th class="color-verde-1">Acciones</th>' +
+									'</tr>' +
+								'</thead>' +
+								'<tbody>';
+
+						for (var i = 0; i < respuesta.length; i++) {
+							cadena += '<tr>' +
+								'<td><div id="' + i + '-nombPais">' + respuesta[i].pais + '</div></td>'+
+								'<td><input id="' + i + '-codiCliente" type="hidden" value="'+ respuesta[i].codI_CLIENTE + '"/><div id="' + i + '-nombCliente">' + respuesta[i].nomB_CLIENTE + '</div></td>'+
+								'<td><input id="' + i + '-codiCultivo" type="hidden" value="'+ respuesta[i].codI_CULTIVO + '"/><div id="' + i + '-nombCultivo">' + respuesta[i].nomB_CULTIVO + '</div></td>'+
+								'<td><input id="' + i + '-codiVariedad" type="hidden" value="'+ respuesta[i].codI_VARIEDAD + '"/><div id="' + i + '-nombVariedad">' + respuesta[i].nomB_VARIEDAD + '</div></td>'+
+								'<td><input id="' + i + '-codiPresentacion" type="hidden" value="'+ respuesta[i].codI_PRESENTACION + '"/><div id="' + i + '-nombPresentacion">' + respuesta[i].nomB_PRESENTACION + '</div></td>'+
+								'<td><input id="' + i + '-codiCalibre" type="hidden" value="'+ respuesta[i].codI_CALIBRE + '"/><div id="' + i + '-nombCalibre">' + respuesta[i].nomB_CALIBRE + '</div></td>'+
+								'<td><div id="' + i + '-pesoMuestraMin">' + respuesta[i].pesO_MUESTRA_MIN + '</div></td>'+
+								'<td><div id="' + i + '-pesoMuestraMax">' + respuesta[i].pesO_MUESTRA_MAX + '</div></td>'+
+								'<td>' +
+									'<button type="button" class="btn btn-success btn-sm me-1" onclick="editar('+ i + ')"  data-bs-toggle="modal" data-bs-target="#editar">' +
+										'<i class="bi bi-pencil" aria-hidden="true"></i>' +
+									'</button>' +
+									'<button type="button" class="btn btn-danger btn-sm"onclick="eliminar('+ i + ')"  data-bs-toggle="modal" data-bs-target="#eliminar">' +
+										'<i class="bi bi-trash" aria-hidden="true"></i>' +
+									'</button>' +
+								'</td>' +
+							'</tr>';															
+						}
+						cadena += '</tbody>' +
+							'</table>' +
+						'</div>';
+					} else {
+						cadena = '<div class="table-responsive">' +
+							'<table class="table table-striped table-hover table-sm table-bordered">' +
+								'<thead>' +
+									'<tr>' +
+										'<th class="text-center color-verde-1">SIN REGISTROS</th>' +
+									'</tr>' +
+								'</thead>' +
+							'</table>' +
+						'</div>';														
+					}
+					$('#listado-rango-pesos').html(cadena);*/
+					armarRespuesta();
+				},
+				complete: function () {
+					$('#spinner-div').hide();
+				}
+			});
+		}
+
+		function armarRespuesta() {			
+			let longitud = respuesta.length;
+			cantidadPaginas = obtenerCantidadPaginas(longitud, porPagina);
+			limites = obtenerLimites(longitud, paginaActual, cantidadPaginas, porPagina);
+			
+			var cadena;
+			if(longitud > 0) {
+				cadena = '<div class="table-responsive">' +
+					'<table class="table table-striped table-hover table-sm table-bordered">' +
+						'<thead>' +
+							'<tr>' +
+								'<th class="color-verde-1">País</th>' +
+								'<th class="color-verde-1">Cliente</th>' +
+								'<th class="color-verde-1">Cultivo</th>' +
+								'<th class="color-verde-1">Variedad</th>' +
+								'<th class="color-verde-1">Presentación</th>' +
+								'<th class="color-verde-1">Calibre</th>' +
+								'<th class="color-verde-1">Peso Mín.</th>' +
+								'<th class="color-verde-1">Peso Máx.</th>' +
+								'<th class="color-verde-1">Acciones</th>' +
+							'</tr>' +
+						'</thead>' +
+						'<tbody>';
+
+				for (var i = limites[0]; i < limites[1]; i++) {
+					cadena += '<tr>' +
+						'<td><div id="' + i + '-nombPais">' + respuesta[i].pais + '</div></td>'+
+						'<td><input id="' + i + '-codiCliente" type="hidden" value="'+ respuesta[i].codI_CLIENTE + '"/><div id="' + i + '-nombCliente">' + respuesta[i].nomB_CLIENTE + '</div></td>'+
+						'<td><input id="' + i + '-codiCultivo" type="hidden" value="'+ respuesta[i].codI_CULTIVO + '"/><div id="' + i + '-nombCultivo">' + respuesta[i].nomB_CULTIVO + '</div></td>'+
+						'<td><input id="' + i + '-codiVariedad" type="hidden" value="'+ respuesta[i].codI_VARIEDAD + '"/><div id="' + i + '-nombVariedad">' + respuesta[i].nomB_VARIEDAD + '</div></td>'+
+						'<td><input id="' + i + '-codiPresentacion" type="hidden" value="'+ respuesta[i].codI_PRESENTACION + '"/><div id="' + i + '-nombPresentacion">' + respuesta[i].nomB_PRESENTACION + '</div></td>'+
+						'<td><input id="' + i + '-codiCalibre" type="hidden" value="'+ respuesta[i].codI_CALIBRE + '"/><div id="' + i + '-nombCalibre">' + respuesta[i].nomB_CALIBRE + '</div></td>'+
+						'<td><div id="' + i + '-pesoMuestraMin">' + respuesta[i].pesO_MUESTRA_MIN + '</div></td>'+
+						'<td><div id="' + i + '-pesoMuestraMax">' + respuesta[i].pesO_MUESTRA_MAX + '</div></td>'+
+						'<td>' +
+							'<button type="button" class="btn btn-success btn-sm me-1" onclick="editar('+ i + ')"  data-bs-toggle="modal" data-bs-target="#editar">' +
+								'<i class="bi bi-pencil" aria-hidden="true"></i>' +
+							'</button>' +
+							'<button type="button" class="btn btn-danger btn-sm"onclick="eliminar('+ i + ')"  data-bs-toggle="modal" data-bs-target="#eliminar">' +
+								'<i class="bi bi-trash" aria-hidden="true"></i>' +
+							'</button>' +
+						'</td>' +
+					'</tr>';															
+				}
+				cadena += '</tbody>' +
+					'</table>' +
+				'</div>';
+			} else {
+				cadena = '<div class="table-responsive">' +
+					'<table class="table table-striped table-hover table-sm table-bordered">' +
+						'<thead>' +
+							'<tr>' +
+								'<th class="text-center color-verde-1">SIN REGISTROS</th>' +
+							'</tr>' +
+						'</thead>' +
+					'</table>' +
+				'</div>';														
+			}
+			armarPaginacion();
+			$('#listado-rango-pesos').html(cadena);
+		}
+
+		function armarPaginacion() {
+			var cadena = '<ul class="pagination pagination-sm">';
+
+			/*let limiteInicio = 1;
+			if ((porPagina/2) <= limiteInicio) limiteInicio = paginaActual;
+			if ((porPagina/2) <= paginaActual) limiteInicio++;
+			let limiteFin = limiteInicio + 5;*/
+		
+			//for (var i = limiteInicio; i <= limiteFin; i++) {	
+			for (var i = 1; i <= cantidadPaginas; i++) {
+				if (i <= 40) {
+					if (paginaActual == i){			
+						cadena += '<li id="pagina-' + i + '" class="page-item active">'+
+							'<span class="page-link fondo-verde-2 borde-verde-2">' + i + '</span>'+
+						'</li>';
+					} else {
+						cadena += '<li id="pagina-' + i + '" class="page-item">'+
+							'<a class="page-link color-gris-3" onclick="navegarPagina(' + i + ')" href="#">' + i + '</a>'+
+						'</li>';
+					}
+				}
+			}
+			cadena += '</ul>';
+			$('#paginacion').html(cadena);
+		}
+
+		function navegarPagina(i) {
+			paginaActual = i;
+			armarRespuesta();
+		}
+
+		function nuevo() {
+			$('#spinner-div').show();
+			$('#agk-peso-minimo-n').val('');
+			$('#agk-peso-maximo-n').val('');
+			$.ajax({
+				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroCultivo',
+				type: 'POST',
+				data: JSON.stringify(),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					var cadena = '<option value="" selected>Selecciona el cultivo</option>';
+					for (var i = 0; i < data.length; i++) {
+						cadena += '<option value="' + data[i].codI_CULTIVO + '">' + data[i].nomB_CULTIVO + '</option>';							
+					}
+					$('#agk-filtro-cultivo-n').html(cadena);
+					$('#agk-filtro-variedad-n').html('<option value="" selected>Selecciona el cultivo</option>');
+					$('#agk-filtro-presentacion-n').html('<option value="" selected>Selecciona el cultivo</option>');
+					$('#agk-filtro-calibre-n').html('<option value="" selected>Selecciona el cultivo</option>');
+				},
+			});
+			$.ajax({
+				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroPais',
+				type: 'POST',
+				data: JSON.stringify(),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					var cadena = '<option value="" selected>Selecciona el país</option>';
+					for (var i = 0; i < data.length; i++) {
+						cadena += '<option value="' + data[i].codI_PAIS + '">' + data[i].nomB_PAIS + '</option>';							
+					}
+					$('#agk-filtro-pais-n').html(cadena);
+					$('#agk-filtro-cliente-n').html('<option value="" selected>Selecciona el país</option>');
+				}
+			});
+
+			var codigoPais = {codiPais: ''};
+			$.ajax({
+				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroCliente',
+				type: 'POST',
+				data: JSON.stringify(codigoPais),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					var cadena = '<option value="" selected>Selecciona el cliente</option>' +
+						'<option value="*">Para cualquier cliente (*)</option>';
+					for (var i = 0; i < data.length; i++) {
+						cadena += '<option value="' + data[i].codI_CLIENTE + '">' + data[i].nomB_CLIENTE + '</option>';							
+					}
+					$('#agk-filtro-cliente-n').html(cadena);
+				},
+				complete: function () {
+					$('#spinner-div').hide();
+				}
+			});
+		}
+
+		function editar(i) {
+
+			var dataEditar = {
+				codiCliente: $('#' + i + '-codiCliente').val(),
+				codiCultivo: $('#' + i + '-codiCultivo').val(),
+				codiVariedad: $('#' + i + '-codiVariedad').val(),
+				codiPresentacion: $('#' + i + '-codiPresentacion').val(),
+				codiCalibre: $('#' + i + '-codiCalibre').val(),
+				nombPais: $('#' + i + '-nombPais').text(),
+				nombCliente: $('#' + i + '-nombCliente').text(),
+				nombCultivo: $('#' + i + '-nombCultivo').text(),
+				nombVariedad: $('#' + i + '-nombVariedad').text(),
+				nombPresentacion: $('#' + i + '-nombPresentacion').text(),
+				nombCalibre: $('#' + i + '-nombCalibre').text(),
+				pesoMuestraMin: parseInt($('#' + i + '-pesoMuestraMin').text()),
+				pesoMuestraMax: parseInt($('#' + i + '-pesoMuestraMax').text())
+			};
+
+			$('#agk-filtro-pais-e').html('<option value="">' + dataEditar.nombPais + '</option>');
+			$('#agk-filtro-cliente-e').html('<option value="' + dataEditar.codiCliente + '">' + dataEditar.nombCliente + '</option>');
+			$('#agk-filtro-cultivo-e').html('<option value="' + dataEditar.codiCultivo + '">' + dataEditar.nombCultivo + '</option>');
+			$('#agk-filtro-variedad-e').html('<option value="' + dataEditar.codiVariedad + '">' + dataEditar.nombVariedad + '</option>');
+			$('#agk-filtro-presentacion-e').html('<option value="' + dataEditar.codiPresentacion + '">' + dataEditar.nombPresentacion + '</option>');
+			$('#agk-filtro-calibre-e').html('<option value="' + dataEditar.codiCalibre + '">' + dataEditar.nombCalibre + '</option>');
+			$('#agk-filtro-presentacion-e').html('<option value="' + dataEditar.codiPresentacion + '">' + dataEditar.nombPresentacion + '</option>');
+			$('#agk-filtro-calibre-e').html('<option value="' + dataEditar.codiCalibre + '">' + dataEditar.nombCalibre + '</option>');
+			$('#agk-peso-minimo-e').val(dataEditar.pesoMuestraMin);
+			$('#agk-peso-maximo-e').val(dataEditar.pesoMuestraMax);
+			
+			console.log('dataEditar');
+			console.log(dataEditar);
+		}
+
+		function guardarNuevo() {
+			var dataEnvio = {
+				codiCliente: $('#agk-filtro-cliente-n').val(),
+				codiCultivo: $('#agk-filtro-cultivo-n').val(),
+				codiVariedad: $('#agk-filtro-variedad-n').val(),
+				codiPresentacion: $('#agk-filtro-presentacion-n').val(),
+				codiCalibre: $('#agk-filtro-calibre-n').val(),
+				pesoMuestraMin: $('#agk-peso-minimo-n').val(),
+				pesoMuestraMax: $('#agk-peso-maximo-n').val()
+			};
+
+			console.log('dataEnvio');
+			console.log(dataEnvio);
+
+			if (dataEnvio.codiCliente == '' 
+				|| dataEnvio.codiCultivo == '' 
+				|| dataEnvio.codiVariedad == '' 
+				|| dataEnvio.codiPresentacion == '' 
+				|| dataEnvio.codiCalibre == '' 
+				|| dataEnvio.pesoMuestraMin == ''
+				|| dataEnvio.pesoMuestraMax == '') {			
+				alert('Es necesario llenar todos los campos');
+			
+			} else {
+				$.ajax({
+					url: info.direccion + '/api/Mantenimiento/NuevoMantenimientoRangoPesos',
+					type: 'POST',
+					data: JSON.stringify(dataEnvio),
+					contentType: 'application/json; charset=utf-8',
+					dataType: 'json',
+					error: function (error) {
+						console.log(error);
+					},
+					success: function (data) {
+						console.log('guardarNuevo');	
+						console.log(data);
+						
+						if (data[0].respuesta == 0) {
+							alert('El registro ya existe');
+						} /* else {
+							alert('Registro guardado con éxito');
+						}*/
+					},
+					complete: function () {					
+						$('#boton-cerrar-n').click();
+						$('#boton-buscar').click();
+						$('#spinner-div').hide();
+					}
+				});
+			}
+		}
+
+		function guardarEditar() {
+			var dataEnvio = {
+				codiCliente: $('#agk-filtro-cliente-e').val(),
+				codiCultivo: $('#agk-filtro-cultivo-e').val(),
+				codiVariedad: $('#agk-filtro-variedad-e').val(),
+				codiPresentacion: $('#agk-filtro-presentacion-e').val(),
+				codiCalibre: $('#agk-filtro-calibre-e').val(),
+				pesoMuestraMin: $('#agk-peso-minimo-e').val(),
+				pesoMuestraMax: $('#agk-peso-maximo-e').val()
+			};	
+
+			console.log('dataEnvio');
+			console.log(dataEnvio);
+
+			$.ajax({
+				url: info.direccion + '/api/Mantenimiento/EditarMantenimientoRangoPesos',
+				type: 'POST',
+				data: JSON.stringify(dataEnvio),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					console.log(data);				
+				},
+				complete: function () {					
+					$('#boton-cerrar-e').click();
+					$('#boton-buscar').click();
+					$('#spinner-div').hide();
+				}
+			});
+		}
+
+		function eliminar(i) {
+			$('#agk-index-eliminar').val(i);
+		}
+
+		function guardarEliminar() {
+			var i = $('#agk-index-eliminar').val();
+
+			var dataEliminar = {
+				codiCliente: $('#' + i + '-codiCliente').val(),
+				codiCultivo: $('#' + i + '-codiCultivo').val(),
+				codiVariedad: $('#' + i + '-codiVariedad').val(),
+				codiPresentacion: $('#' + i + '-codiPresentacion').val(),
+				codiCalibre: $('#' + i + '-codiCalibre').val(),
+			};
+
+			$.ajax({
+				url: info.direccion + '/api/Mantenimiento/EliminarMantenimientoRangoPesos',
+				type: 'POST',
+				data: JSON.stringify(dataEliminar),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					console.log(data);				
+				},
+				complete: function () {					
+					$('#boton-cerrar-eliminar').click();
+					$('#boton-buscar').click();
+					$('#spinner-div').hide();
+				}
+			});
+
+			console.log('dataEliminar');
+			console.log(dataEliminar);
+		}
+
+		function obtenerCantidadPaginas(longitud, porPagina) {
+			let resultado = longitud / porPagina;
+			let cantidadPaginas = Math.ceil(resultado);
+
+			console.log('obtenerCantidadPaginas');
+			console.log(cantidadPaginas);
+			return cantidadPaginas;
+		}
+
+		function obtenerLimites(longitud, numeroPagina, cantidadPaginas, porPagina) {
+			let maximo;
+			let modulo = longitud % porPagina;
+			let limiteInferior = numeroPagina * porPagina - porPagina;
+			let limiteSuperior = numeroPagina * porPagina;
+			(modulo == 0)
+				? maximo = cantidadPaginas * porPagina
+				: maximo = cantidadPaginas * porPagina - porPagina;
+			if (limiteSuperior > maximo && modulo > 0) {
+			limiteSuperior = limiteInferior + modulo;
+			}
+			let resultado = [limiteInferior, limiteSuperior];
+			console.log('obtenerLimites');
+			console.log(resultado);
+
+			return resultado;
+		}
+
+
+	</script>
+</html>

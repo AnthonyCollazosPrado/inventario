@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+html, body {
+	font-family: 'Raleway', sans-serif;
+}
+.color-rojo {
+	color: #A30027 !important;
+}
+.color-verde-1 {
+	color: #C1B674 !important;
+}
+.color-verde-2 {
+	color: #007037 !important;
+}
+.color-gris-1 {
+	color: #E3E3E3 !important;
+}
+.color-gris-2 {
+	color: #B7B7B7 !important;
+}
+.color-gris-3 {
+	color: #191919 !important;
+}
+.color-blanco {
+	color: #fff !important;
+}
+.color-negro {
+	color: #000 !important;
+}
+.fondo-rojo {
+	background-color: #A30027 !important;
+}
+.fondo-verde-1 {
+	background-color: #C1B674 !important;
+}
+.fondo-verde-2 {
+	background-color: #007037 !important;
+}
+.fondo-gris-1 {
+	background-color: #E3E3E3 !important;
+}
+.fondo-gris-2 {
+	background-color: #B7B7B7 !important;
+}
+.fondo-gris-3 {
+	background-color: #191919 !important;
+}
+.fondo-blanco {
+	background-color: #fff !important;
+}
+.fondo-negro {
+	background-color: #000 !important;
+}
+.borde-verde-2 {
+    border-color: #007037 !important;
+}
+
+.cabecera-logo {
+	width: 240px;
+    margin: 20px 0 20px 0;
+    display: block;
+}
+.pie-logo {
+    width: 200px;
+    margin: 0 auto;
+    display: block;
+}
+.texto-chico {
+	font-size: 12px;
+}
+#spinner-div {
+	position: fixed;
+	display: none;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	text-align: center;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 9999;
+}
+#spinner-div div {
+	margin-top: 280px;
+}
+.bordes-redondos {
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+
+@media (min-width: 576px) {
+
+}
+
+@media (min-width: 768px) {
+	
+}
+@media (min-width: 992px) {
+
+}
+@media (min-width: 1200px) {
+
+}
+@media (min-width: 1400px) {
+
+}
