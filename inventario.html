@@ -10,15 +10,22 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 		<title>Inventario de equipo</title>
 	</head>
-	<body id="contenedor" class="fondo-gris-1">
+	<body class="fondo-gris-1">
 
 		<div class="container-fluid fondo-verde-2">
 			<nav class="container-xxl">
 				<div class="row">
-					<div class="col-12">
+					<div class="col-8">
 						<a class="cabecera-logo" href="index.html">
 							<img src="./img/site_logo.jpg" class="img-fluid" alt="Logo Agrokasa">
 						</a>
+					</div>
+					<div class="col-4">
+						<div class="cabecera-boton text-end">
+							<button id="boton-cerrar-sesion" type="button" class="btn btn-danger btn-sm" onclick="cerrarSesion()">
+								<i class="bi bi-x me-1" aria-hidden="true"></i>Cerrar sesión
+							</button>
+						</div>
 					</div>
 				</div>
 			</nav>
@@ -28,40 +35,93 @@
 			<nav class="container-xxl">
 				<div class="row">
 					<div class="col-12">
-						<h3 class="mt-2 mb-5 text-center color-verde-1"><b>Acceso Inventario</b></h3>
+						<h3 class="mt-2 mb-5 text-center color-verde-1"><b>Inventario de Equipo</b></h3>
 					</div>
 				</div>	
 
-				<div class="row">
-					<div class="col-0 col-sm-2 col-md-3 col-lg-4 col-xl-4"></div>
-					<div class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-4 form-group">
-						<input type="text" id="input-usuario" class="form-control form-control-sm" placeholder="Usuario">
+				<div id="seccion-buscar" class="row">
+					<div class="col-8 col-md-9 col-lg-10 col-xl-10 form-group">
+						<input type="text" id="input-busqueda" class="form-control form-control-sm" placeholder="Búsqueda">
 					</div>
-					<div class="col-0 col-sm-2 col-md-3 col-lg-4 col-xl-4"></div>
-				</div>
-				<br>
-				<div class="row">
-					<div class="col-0 col-sm-2 col-md-3 col-lg-4 col-xl-4"></div>
-					<div class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-4 form-group">
-						<input type="password" id="input-clave" class="form-control form-control-sm" placeholder="Clave">
-					</div>
-					<div class="col-0 col-sm-2 col-md-3 col-lg-4 col-xl-4"></div>
-				</div>
-				<br>
-				<div class="row">
-					<div class="col-0 col-sm-2 col-md-3 col-lg-4 col-xl-4"></div>
-					<div class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-4 form-group">
+					<div class="col-4 col-md-3 col-lg-2 col-xl-2 form-group">
 						<div class="d-grid gap-2">
-							<button id="boton-loguear" type="button" class="btn btn-primary btn-sm" onclick="loguear()">
-								<i class="bi bi-arrow-right-circle me-1" aria-hidden="true"></i>Loguear
+							<button id="boton-buscar" type="button" class="btn btn-primary btn-sm" onclick="buscar()">
+								<i class="bi bi-search me-1" aria-hidden="true"></i>Buscar
 							</button>
 						</div>
 					</div>
-					<div class="col-0 col-sm-2 col-md-3 col-lg-4 col-xl-4"></div>
 				</div>	
-				<br>
-				<br>
 
+				<div class="row">
+					<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group seccion-filtrar">
+						<label for="filtro-proveedor" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Proveedor</label>
+						<select id="filtro-proveedor" class="form-select form-select-sm" aria-label="Proveedor">
+							<option value="" selected>Selecciona la empresa</option>
+						</select>
+					</div>
+					<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group seccion-filtrar">
+						<label for="filtro-operador" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Operador</label>
+						<select id="filtro-operador" class="form-select form-select-sm" aria-label="Operador">
+							<option value="" selected>Selecciona el operador</option>
+						</select>
+					</div>
+					<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group seccion-filtrar">
+						<label for="filtro-usuario" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Usuario</label>
+						<select id="filtro-usuario" class="form-select form-select-sm" aria-label="Usuario" onchange="traerFiltroUsuario()">
+							<option value="" selected>Selecciona el usuario</option>
+						</select>
+					</div>
+					<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group seccion-filtrar">
+						<label for="filtro-sede" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Sede</label>
+						<select id="filtro-sede" class="form-select form-select-sm" aria-label="Sede">
+							<option value="" selected>Selecciona el sede</option>
+						</select>
+					</div>
+					<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group seccion-filtrar">
+						<label for="filtro-area" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Área</label>
+						<select id="filtro-area" class="form-select form-select-sm" aria-label="Área">
+							<option value="" selected>Selecciona el area</option>
+						</select>
+					</div>
+					<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group seccion-filtrar">
+						<label for="filtro-equipo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Equipo</label>
+						<select id="filtro-equipo" class="form-select form-select-sm" aria-label="Equipo">
+							<option value="" selected>Selecciona la fecha</option>
+						</select>
+					</div>
+				</div>
+				<br>
+				<div class="row mb-5">
+					<div class="col-12 form-group text-end">
+						<button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#nuevo">
+							<i class="bi bi-plus-circle me-1" aria-hidden="true"></i>Nuevo
+						</button>
+						<button id="boton-descargar-buscar" type="button" class="btn btn-secondary btn-sm" onclick="descargarBuscar()">
+							<i class="bi bi-file-earmark-excel me-1" aria-hidden="true"></i>Descargar
+						</button>
+						<button id="boton-descargar-filtrar" type="button" class="btn btn-secondary btn-sm" onclick="descargarFiltrar()">
+							<i class="bi bi-file-earmark-excel me-1" aria-hidden="true"></i>Descargar
+						</button>
+						<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#subir">
+							<i class="bi bi-file-earmark-excel me-1" aria-hidden="true"></i>Subir
+						</button>
+						<button id="boton-filtrar" type="button" class="btn btn-primary btn-sm" onclick="filtrar()">
+							<i class="bi bi-funnel me-1" aria-hidden="true"></i>Filtrar
+						</button>
+						<button id="boton-ver-buscar" type="button" class="btn btn-primary btn-sm" onclick="verBuscar()">
+							<i class="bi bi-three-dots-vertical me-1" aria-hidden="true"></i> 
+							<i class="bi bi-search me-1" aria-hidden="true"></i>
+						</button>
+						<button id="boton-ver-filtrar" type="button" class="btn btn-primary btn-sm" onclick="verFiltrar()">
+							<i class="bi bi-three-dots-vertical me-1" aria-hidden="true"></i> 
+							<i class="bi bi-funnel me-1" aria-hidden="true"></i>
+						</button>
+					</div>
+				</div>
+
+				<div id="listado-inventario"></div>
+
+				<nav id="paginacion"></nav>
 			</div>
 		</div>
 
@@ -80,13 +140,307 @@
 		<div id="spinner-div">
 			<div class="spinner-border text-light" role="status"></div>
 		</div>
+
+		<div class="modal fade" id="nuevo" tabindex="-1" aria-labelledby="nuevoLabel" aria-hidden="true">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content bordes-redondos">
+					<div class="modal-header">
+						<h5 class="modal-title color-verde-1" id="nuevoLabel"><b>Nuevo</b></h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+
+						<div class="row">
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-proveedor-nuevo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Proveedor</label>
+								<input id="input-proveedor-nuevo" type="text" class="form-control form-control-sm" placeholder="Proveedor">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-operador-nuevo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Operador</label>
+								<input id="input-operador-nuevo" type="text" class="form-control form-control-sm" placeholder="Operador">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-codigo_empleado-nuevo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Código empleado</label>
+								<input id="input-codigo_empleado-nuevo" type="text" class="form-control form-control-sm" placeholder="Código empleado">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-usuario-nuevo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Usuario</label>
+								<input id="input-usuario-nuevo" type="text" class="form-control form-control-sm" placeholder="Usuario">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-ceco-nuevo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Ceco</label>
+								<input id="input-ceco-nuevo" type="text" class="form-control form-control-sm" placeholder="Ceco">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-linea-nuevo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Línea</label>
+								<input id="input-linea-nuevo" type="text" class="form-control form-control-sm" placeholder="Línea">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-costo_plan_sin_igv-nuevo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Costo plan sin IGV</label>
+								<input id="input-costo_plan_sin_igv-nuevo" type="text" class="form-control form-control-sm" placeholder="Costo plan sin IGV">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-costo_plan_con_igv-nuevo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Costo plan con IGV</label>
+								<input id="input-costo_plan_con_igv-nuevo" type="text" class="form-control form-control-sm" placeholder="Costo plan con IGV">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-sede-nuevo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Sede</label>
+								<input id="input-sede-nuevo" type="text" class="form-control form-control-sm" placeholder="Sede">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-area-nuevo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Área</label>
+								<input id="input-area-nuevo" type="text" class="form-control form-control-sm" placeholder="Área">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-fecha_compra_inicial-nuevo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Fecha compra inicial</label>
+								<input id="input-fecha_compra_inicial-nuevo" type="text" class="form-control form-control-sm" placeholder="dd/mm/aaaa">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-fecha_ultimo_cambio-nuevo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Fecha último cambio</label>
+								<input id="input-fecha_ultimo_cambio-nuevo" type="text" class="form-control form-control-sm" placeholder="dd/mm/aaaa">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-plazo_permanencia-nuevo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Plazo permanencia</label>
+								<input id="input-plazo_permanencia-nuevo" type="text" class="form-control form-control-sm" placeholder="Plazo permanencia">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-codigo_equipo-nuevo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Código equipo</label>
+								<input id="input-codigo_equipo-nuevo" type="text" class="form-control form-control-sm" placeholder="Código equipo">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-tipo_equipo-nuevo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Tipo equipo</label>
+								<input id="input-tipo_equipo-nuevo" type="text" class="form-control form-control-sm" placeholder="Tipo equipo">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-marca-nuevo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Marca</label>
+								<input id="input-marca-nuevo" type="text" class="form-control form-control-sm" placeholder="Marca">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-modelo-nuevo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Modelo</label>
+								<input id="input-modelo-nuevo" type="text" class="form-control form-control-sm" placeholder="Modelo">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-equipo-nuevo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Equipo</label>
+								<input id="input-equipo-nuevo" type="text" class="form-control form-control-sm" placeholder="Equipo">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-imei-nuevo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">IMEI</label>
+								<input id="input-imei-nuevo" type="text" class="form-control form-control-sm" placeholder="IMEI">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-mac_address-nuevo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">MAC Address</label>
+								<input id="input-mac_address-nuevo" type="text" class="form-control form-control-sm" placeholder="MAC Address">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-numero_sim-nuevo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Número SIM</label>
+								<input id="input-numero_sim-nuevo" type="text" class="form-control form-control-sm" placeholder="Número SIM">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-plan_contratado-nuevo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Plan contratado</label>
+								<input id="input-plan_contratado-nuevo" type="text" class="form-control form-control-sm" placeholder="Plan contratado">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-estado_equipo-nuevo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Estado equipo</label>
+								<input id="input-estado_equipo-nuevo" type="text" class="form-control form-control-sm" placeholder="Estado equipo">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-renovacion_por-nuevo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Renovación por</label>
+								<input id="input-renovacion_por-nuevo" type="text" class="form-control form-control-sm" placeholder="Renovación por">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button id="boton-cerrar-nuevo" type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+							<i class="bi bi-x me-1" aria-hidden="true"></i>Cerrar
+						</button>
+						<button type="button" class="btn btn-primary btn-sm" onclick="guardarNuevo()">
+							<i class="bi bi-save me-1" aria-hidden="true"></i>Guardar
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="editar" tabindex="-1" aria-labelledby="editarLabel" aria-hidden="true">
+			<div class="modal-dialog modal-xl">
+				<div class="modal-content bordes-redondos">
+					<div class="modal-header">
+						<h5 class="modal-title color-verde-1" id="editarLabel"><b>Editar</b></h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-proveedor-editar" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Proveedor</label>
+								<input id="input-proveedor-editar" type="text" class="form-control form-control-sm" placeholder="Proveedor">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-operador-editar" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Operador</label>
+								<input id="input-operador-editar" type="text" class="form-control form-control-sm" placeholder="Operador">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-codigo_empleado-editar" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Código empleado</label>
+								<input id="input-codigo_empleado-editar" type="text" class="form-control form-control-sm" placeholder="Código empleado">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-usuario-editar" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Usuario</label>
+								<input id="input-usuario-editar" type="text" class="form-control form-control-sm" placeholder="Usuario">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-ceco-editar" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Ceco</label>
+								<input id="input-ceco-editar" type="text" class="form-control form-control-sm" placeholder="Ceco">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-linea-editar" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Línea</label>
+								<input id="input-linea-editar" type="text" class="form-control form-control-sm" placeholder="Línea">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-costo_plan_sin_igv-editar" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Costo plan sin IGV</label>
+								<input id="input-costo_plan_sin_igv-editar" type="text" class="form-control form-control-sm" placeholder="Costo plan sin IGV">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-costo_plan_con_igv-editar" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Costo plan con IGV</label>
+								<input id="input-costo_plan_con_igv-editar" type="text" class="form-control form-control-sm" placeholder="Costo plan con IGV">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-sede-editar" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Sede</label>
+								<input id="input-sede-editar" type="text" class="form-control form-control-sm" placeholder="Sede">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-area-editar" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Área</label>
+								<input id="input-area-editar" type="text" class="form-control form-control-sm" placeholder="Área">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-fecha_compra_inicial-editar" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Fecha compra inicial</label>
+								<input id="input-fecha_compra_inicial-editar" type="text" class="form-control form-control-sm" placeholder="dd/mm/aaaa">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-fecha_ultimo_cambio-editar" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Fecha último cambio</label>
+								<input id="input-fecha_ultimo_cambio-editar" type="text" class="form-control form-control-sm" placeholder="dd/mm/aaaa">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-plazo_permanencia-editar" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Plazo permanencia</label>
+								<input id="input-plazo_permanencia-editar" type="text" class="form-control form-control-sm" placeholder="Plazo permanencia">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-codigo_equipo-editar" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Código equipo</label>
+								<input id="input-codigo_equipo-editar" type="text" class="form-control form-control-sm" placeholder="Código equipo">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-tipo_equipo-editar" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Tipo equipo</label>
+								<input id="input-tipo_equipo-editar" type="text" class="form-control form-control-sm" placeholder="Tipo equipo">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-marca-editar" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Marca</label>
+								<input id="input-marca-editar" type="text" class="form-control form-control-sm" placeholder="Marca">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-modelo-editar" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Modelo</label>
+								<input id="input-modelo-editar" type="text" class="form-control form-control-sm" placeholder="Modelo">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-equipo-editar" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Equipo</label>
+								<input id="input-equipo-editar" type="text" class="form-control form-control-sm" placeholder="Equipo">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-imei-editar" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">IMEI</label>
+								<input id="input-imei-editar" type="text" class="form-control form-control-sm" placeholder="IMEI">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-mac_address-editar" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">MAC Address</label>
+								<input id="input-mac_address-editar" type="text" class="form-control form-control-sm" placeholder="MAC Address">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-numero_sim-editar" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Número SIM</label>
+								<input id="input-numero_sim-editar" type="text" class="form-control form-control-sm" placeholder="Número SIM">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-plan_contratado-editar" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Plan contratado</label>
+								<input id="input-plan_contratado-editar" type="text" class="form-control form-control-sm" placeholder="Plan contratado">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-estado_equipo-editar" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Estado equipo</label>
+								<input id="input-estado_equipo-editar" type="text" class="form-control form-control-sm" placeholder="Estado equipo">
+							</div>
+							<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
+								<label for="input-renovacion_por-editar" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Renovación por</label>
+								<input id="input-renovacion_por-editar" type="text" class="form-control form-control-sm" placeholder="Renovación por">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button id="boton-cerrar-editar" type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+							<i class="bi bi-x me-1" aria-hidden="true"></i>Cerrar
+						</button>
+						<button type="button" class="btn btn-primary btn-sm" onclick="guardarEditar()">
+							<i class="bi bi-save me-1" aria-hidden="true"></i>Guardar
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="eliminar" tabindex="-1" aria-labelledby="eliminarLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content bordes-redondos">
+					<div class="modal-header">
+						<h5 class="modal-title color-verde-1" id="eliminarLabel"><b>Eliminar</b></h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-12 my-4">
+								<h6 class="text-center">¿Está seguro de eliminar este registro?</h6>
+								<input type="hidden" name="index-eliminar" id="index-eliminar" value="">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button id="boton-cerrar-eliminar" type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+							<i class="bi bi-x me-1" aria-hidden="true"></i>Cerrar
+						</button>
+						<button type="button" class="btn btn-danger btn-sm" onclick="guardarEliminar()">
+							<i class="bi bi-trash" aria-hidden="true"></i> Eliminar
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="subir" tabindex="-1" aria-labelledby="subirLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content bordes-redondos">
+					<div class="modal-header">
+						<h5 class="modal-title color-verde-1" id="subirLabel"><b>Subir</b></h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+
+						<div class="row">
+							<div class="col-12">
+								<input class="form-control form-control-sm"" type="file" id="uploadFile" accept=".xls,.xlsx"  >
+							</div>		
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<button id="boton-cerrar-subir" type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
+							<i class="bi bi-x me-1" aria-hidden="true"></i>Cerrar
+						</button>
+						<button id="subirInventario" type="button" class="btn btn-danger btn-sm">
+							<i class="bi bi-cloud-arrow-up" aria-hidden="true"></i> subir
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
 
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
 	<script>
-		
+
 		const info = {
 			direccion: 'https://localhost:7039/api/Inventario'
 		}
@@ -97,40 +451,6 @@
 		let limites;
 		let botonBuscar = true;
 		let botonFiltrar = false;
-
-		function loguear() {
-			$('#spinner-div').show();
-			let loguear = {
-				nombre: $('#input-usuario').val(),
-				clave: $('#input-clave').val(),
-			};
-			$.ajax({
-				url: info.direccion + '/LoguearUsuario',
-				type: 'POST',
-				data: JSON.stringify(loguear),
-				contentType: 'application/json; charset=utf-8',
-				dataType: 'json',
-				error: function (error) {
-					console.log(error);
-				},
-				success: function (data) {
-					if (data[0].respuesta == 0) {
-						window.localStorage.setItem('logueado', false);
-						alert('El usuario o la clave son incorrectos.');
-					}
-					if (data[0].respuesta == 1) {
-						window.localStorage.setItem('logueado', true);
-						window.location.href = 'inventario.html';
-						//$('#contenedor').load('parts/inventario.html?v=3');
-						//alert('Acceso correcto.');
-					}
-				},
-				complete: function () {
-					console.log(window.localStorage.getItem('logueado'));
-					$('#spinner-div').hide();
-				}
-			});
-		}
 
 		$( document ).ready(function() {
 			console.log(window.localStorage.getItem('logueado'));
