@@ -100,7 +100,9 @@
 
 		function loguear() {
 			$('#spinner-div').show();
-			let loguear = {
+			$('#contenedor').load('parts/inventario.txt');
+			$('#spinner-div').hide();
+			/*let loguear = {
 				nombre: $('#input-usuario').val(),
 				clave: $('#input-clave').val(),
 			};
@@ -120,7 +122,6 @@
 					}
 					if (data[0].respuesta == 1) {
 						window.localStorage.setItem('logueado', true);
-						alert();
 						$('#contenedor').load('parts/inventario.txt');
 						//alert('Acceso correcto.');
 					}
@@ -129,7 +130,7 @@
 					console.log(window.localStorage.getItem('logueado'));
 					$('#spinner-div').hide();
 				}
-			});
+			});*/
 		}
 
 		$( document ).ready(function() {
