@@ -100,7 +100,7 @@
 
 		function loguear() {
 			$('#spinner-div').show();
-			$('#contenedor').load('parts/inventario.txt');
+			$('#contenedor').load('parts/inventario.html');
 			$('#spinner-div').hide();
 			/*let loguear = {
 				nombre: $('#input-usuario').val(),
@@ -122,7 +122,7 @@
 					}
 					if (data[0].respuesta == 1) {
 						window.localStorage.setItem('logueado', true);
-						$('#contenedor').load('parts/inventario.txt');
+						$('#contenedor').load('parts/inventario.html');
 						//alert('Acceso correcto.');
 					}
 				},
