@@ -120,7 +120,7 @@
 					}
 					if (data[0].respuesta == 1) {
 						window.localStorage.setItem('logueado', true);
-						$('#contenedor').load('parts/inventario.html?v=2');
+						$('#contenedor').load('parts/inventario.html?v=3');
 						//alert('Acceso correcto.');
 					}
 				},
@@ -135,16 +135,17 @@
 			$('#spinner-div').show();
 			window.localStorage.setItem('logueado', false);
 			console.log(window.localStorage.getItem('logueado'));
-			$('#contenedor').load('parts/logueo.html?v=2');
+			$('#contenedor').load('parts/logueo.html?v=3');
 			$('#spinner-div').hide();
 		}
 
 		$( document ).ready(function() {
-			if (window.localStorage.getItem('logueado')) {
-				$('#contenedor').load('parts/inventario.html?v=2');
+			console.log(window.localStorage.getItem('logueado'));
+			if (window.localStorage.getItem('logueado') == true) {
+				$('#contenedor').load('parts/inventario.html?v=3');
 				traerFiltrosIniciales();
 			} else {
-				$('#contenedor').load('parts/logueo.html?v=2');
+				$('#contenedor').load('parts/logueo.html?v=3');
 			}
 		});
 
@@ -946,5 +947,5 @@
 		}
 
 	</script>
-	<script src="js/formats.js?v=2"></script>
+	<script src="js/formats.js?v=3"></script>
 </html>
