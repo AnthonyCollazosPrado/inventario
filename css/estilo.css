@@ -70,6 +70,10 @@ table th {
     margin: 20px 0 20px 0;
     display: block;
 }
+.cabecera-boton {
+    margin: 25px 0 25px 0;
+    display: block;
+}
 .pie-logo {
     width: 100px;
     margin: 0 auto;
