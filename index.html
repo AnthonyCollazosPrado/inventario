@@ -120,7 +120,7 @@
 					}
 					if (data[0].respuesta == 1) {
 						window.localStorage.setItem('logueado', true);
-						$('#contenedor').load('parts/inventario.html?v=1');
+						$('#contenedor').load('parts/inventario.html?v=2');
 						//alert('Acceso correcto.');
 					}
 				},
@@ -135,14 +135,16 @@
 			$('#spinner-div').show();
 			window.localStorage.setItem('logueado', false);
 			console.log(window.localStorage.getItem('logueado'));
-			$('#contenedor').load('parts/logueo.html?v=1');
+			$('#contenedor').load('parts/logueo.html?v=2');
 			$('#spinner-div').hide();
 		}
 
 		$( document ).ready(function() {
 			if (window.localStorage.getItem('logueado')) {
-				$('#contenedor').load('parts/inventario.html?v=1');
+				$('#contenedor').load('parts/inventario.html?v=2');
 				traerFiltrosIniciales();
+			} else {
+				$('#contenedor').load('parts/logueo.html?v=2');
 			}
 		});
 
@@ -944,5 +946,5 @@
 		}
 
 	</script>
-	<script src="js/formats.js?v=1"></script>
+	<script src="js/formats.js?v=2"></script>
 </html>
