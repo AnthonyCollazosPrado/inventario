@@ -323,7 +323,10 @@
 
 		function buscar() {
 			$('#spinner-div').show();
-			let busqueda = {
+
+			window.localStorage.setItem('logueado', false);
+
+			/*let busqueda = {
 				palabra: $('#input-busqueda').val(),
 			};
 			$.ajax({
@@ -343,7 +346,7 @@
 				complete: function () {
 					$('#spinner-div').hide();
 				}
-			});
+			});*/
 		}
 
 		function filtrar() {
