@@ -120,7 +120,7 @@
 					}
 					if (data[0].respuesta == 1) {
 						window.localStorage.setItem('logueado', true);
-						$('#contenedor').load('parts/inventario.html');
+						$('#contenedor').load('parts/inventario.html?v=1');
 						//alert('Acceso correcto.');
 					}
 				},
@@ -135,13 +135,13 @@
 			$('#spinner-div').show();
 			window.localStorage.setItem('logueado', false);
 			console.log(window.localStorage.getItem('logueado'));
-			$('#contenedor').load('parts/logueo.html');
+			$('#contenedor').load('parts/logueo.html?v=1');
 			$('#spinner-div').hide();
 		}
 
 		$( document ).ready(function() {
 			if (window.localStorage.getItem('logueado')) {
-				$('#contenedor').load('parts/inventario.html');
+				$('#contenedor').load('parts/inventario.html?v=1');
 				traerFiltrosIniciales();
 			}
 		});
@@ -943,17 +943,6 @@
 			return resultado;
 		}
 
-
-		const formatoFechaBD = (fecha) => {
-			var resultado = fecha.split('/');
-			return resultado[2] + '-' + resultado[1]  + '-' + resultado[0];
-		}
-
-		const formatoFechaWeb = (fecha) => {
-			var arreglo = fecha.split('T');
-			var resultado = arreglo[0].split('-');
-			return resultado[2] + '/' + resultado[1]  + '/' + resultado[0];
-		}
-
 	</script>
+	<script src="js/formats.js?v=1"></script>
 </html>
