@@ -125,7 +125,7 @@
 					}
 				},
 				complete: function () {
-					//console.log(window.localStorage.getItem('logueado'));
+					console.log(window.localStorage.getItem('logueado'));
 					$('#spinner-div').hide();
 				}
 			});
@@ -134,6 +134,7 @@
 		function cerrarSesion() {
 			$('#spinner-div').show();
 			window.localStorage.setItem('logueado', false);
+			console.log(window.localStorage.getItem('logueado'));
 			$('#contenedor').load('parts/logueo.html');
 			$('#spinner-div').hide();
 		}
