@@ -3,6 +3,12 @@
 html, body {
 	font-family: 'Raleway', sans-serif;
 }
+table {
+	font-size: 90%;
+}
+table th {
+	font-size: 90%;
+}
 .color-rojo {
 	color: #A30027 !important;
 }
@@ -55,13 +61,17 @@ html, body {
     border-color: #007037 !important;
 }
 
+.seccion-filtrar, #boton-filtrar, #boton-descargar-filtrar, #boton-ver-buscar {
+	display: none;
+}
+
 .cabecera-logo {
-	width: 240px;
+	width: 130px;
     margin: 20px 0 20px 0;
     display: block;
 }
 .pie-logo {
-    width: 200px;
+    width: 100px;
     margin: 0 auto;
     display: block;
 }

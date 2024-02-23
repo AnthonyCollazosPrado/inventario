@@ -8,12 +8,12 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 		<link rel="stylesheet" href="./css/estilo.css?v=7">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-		<title>Agrokasa</title>
+		<title>Inventario de equipo</title>
 	</head>
-	<body class="fondo-gris-1">
+	<body id="contenedor" class="fondo-gris-1">
 
 		<div class="container-fluid fondo-verde-2">
-			<nav class="container">
+			<nav class="container-xxl">
 				<div class="row">
 					<div class="col-12">
 						<a class="cabecera-logo" href="index.html">
@@ -25,80 +25,48 @@
 		</div>
 
 		<div class="container-fluid py-5 fondo-blanco">
-			<nav class="container">
+			<nav class="container-xxl">
 				<div class="row">
-					<div class="row">
-						<div class="col-12">
-							<h3 class="mt-2 mb-5 text-center color-verde-1"><b>Mantenimiento de Rango de Pesos</b></h3>
+					<div class="col-12">
+						<h3 class="mt-2 mb-5 text-center color-verde-1"><b>Acceso Inventario</b></h3>
+					</div>
+				</div>	
+
+				<div class="row">
+					<div class="col-0 col-sm-2 col-md-3 col-lg-4 col-xl-4"></div>
+					<div class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-4 form-group">
+						<input type="text" id="input-usuario" class="form-control form-control-sm" placeholder="Usuario">
+					</div>
+					<div class="col-0 col-sm-2 col-md-3 col-lg-4 col-xl-4"></div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-0 col-sm-2 col-md-3 col-lg-4 col-xl-4"></div>
+					<div class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-4 form-group">
+						<input type="password" id="input-clave" class="form-control form-control-sm" placeholder="Clave">
+					</div>
+					<div class="col-0 col-sm-2 col-md-3 col-lg-4 col-xl-4"></div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-0 col-sm-2 col-md-3 col-lg-4 col-xl-4"></div>
+					<div class="col-12 col-sm-8 col-md-6 col-lg-4 col-xl-4 form-group">
+						<div class="d-grid gap-2">
+							<button id="boton-loguear" type="button" class="btn btn-primary btn-sm" onclick="loguear()">
+								<i class="bi bi-arrow-right-circle me-1" aria-hidden="true"></i>Loguear
+							</button>
 						</div>
 					</div>
-				</div>					
-				<div class="row">
-					<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
-						<label for="agk-filtro-cultivo" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Cultivo</label>
-						<select id="agk-filtro-cultivo" class="form-select form-select-sm" aria-label="Cultivo" onchange="traerFiltrosHijosCultivo()">
-							<option value="" selected>Selecciona el cultivo</option>
-						</select>
-					</div>
-					<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
-						<label for="agk-filtro-variedad" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Variedad</label>
-						<select id="agk-filtro-variedad" class="form-select form-select-sm" aria-label="Variedad">
-							<option value="" selected>Selecciona el cultivo</option>
-						</select>
-					</div>
-					<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
-						<label for="agk-filtro-presentacion" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Presentación</label>
-						<select id="agk-filtro-presentacion" class="form-select form-select-sm" aria-label="Presentación">
-							<option value="" selected>Selecciona el cultivo</option>
-						</select>
-					</div>
-					<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
-						<label for="agk-filtro-calibre" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Calibre</label>
-						<select id="agk-filtro-calibre" class="form-select form-select-sm" aria-label="Calibre">
-							<option value="" selected>Selecciona el cultivo</option>
-						</select>
-					</div>
-					<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
-						<label for="agk-filtro-pais" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">País</label>
-						<select id="agk-filtro-pais" class="form-select form-select-sm" aria-label="País" onchange="traerFiltrosHijosPais()">
-							<option value="" selected>Selecciona el país</option>
-						</select>
-					</div>
-					<div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-3 form-group">
-						<label for="agk-filtro-cliente" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Cliente</label>
-						<select id="agk-filtro-cliente" class="form-select form-select-sm" aria-label="Cliente">
-							<option value="" selected>Selecciona el país</option>
-						</select>
-					</div>
-				</div>
-				<div class="row mb-5">
-					<div class="col-12 form-group text-end">
-						<button id="boton-buscar" type="button" class="btn btn-primary btn-sm" onclick="buscar()">
-							<i class="bi bi-search me-1" aria-hidden="true"></i>Buscar
-						</button>
-						<button type="button" class="btn btn-success btn-sm" onclick="nuevo()" data-bs-toggle="modal" data-bs-target="#nuevo">
-							<i class="bi bi-plus-circle me-1" aria-hidden="true"></i>Nuevo
-						</button>
-					</div>
-				</div>
+					<div class="col-0 col-sm-2 col-md-3 col-lg-4 col-xl-4"></div>
+				</div>	
+				<br>
+				<br>
 
-				<div id="listado-rango-pesos"></div>
-
-
-				<nav id="paginacion">
-					<!-- <ul class="pagination pagination-sm">
-						<li id="pagina-1" class="page-item active" aria-current="page">
-							<span class="page-link fondo-verde-2 borde-verde-2">1</span>
-						</li>
-						<li class="page-item"><a class="page-link color-gris-3" href="#">2</a></li>
-						<li class="page-item"><a class="page-link color-gris-3" href="#">3</a></li>
-					</ul> -->
-				</nav>
 			</div>
 		</div>
 
 		<footer class="pie fondo-gris-1 py-4">
-			<div class="container">
+			<div class="container-xxl">
 				<div class="row">
 					<div class="col-md-12">
 						<a class="pie-logo" href="index.html">
@@ -112,240 +80,192 @@
 		<div id="spinner-div">
 			<div class="spinner-border text-light" role="status"></div>
 		</div>
-
-		<div class="modal fade" id="nuevo" tabindex="-1" aria-labelledby="nuevoLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content bordes-redondos">
-					<div class="modal-header">
-						<h5 class="modal-title color-verde-1" id="nuevoLabel"><b><i class="bi bi-plus-circle me-1" aria-hidden="true"></i>Nuevo</b></h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-12 mb-3 form-group">
-								<label for="agk-filtro-cultivo-n" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Cultivo</label>
-								<select id="agk-filtro-cultivo-n" class="form-select form-select-sm" aria-label="Cultivo" onchange="traerFiltrosHijosCultivoN()">
-									<option value="" selected>Selecciona el cultivo</option>
-								</select>
-							</div>
-							<div class="col-12 mb-3 form-group">
-								<label for="agk-filtro-variedad-n" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Variedad</label>
-								<select id="agk-filtro-variedad-n" class="form-select form-select-sm" aria-label="Variedad">
-									<option value="" selected>Selecciona el cultivo</option>
-								</select>
-							</div>
-							<div class="col-12 mb-3 form-group">
-								<label for="agk-filtro-presentacion-n" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Presentación</label>
-								<select id="agk-filtro-presentacion-n" class="form-select form-select-sm" aria-label="Presentación">
-									<option value="" selected>Selecciona el cultivo</option>
-								</select>
-							</div>
-							<div class="col-12 mb-3 form-group">
-								<label for="agk-filtro-calibre-n" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Calibre</label>
-								<select id="agk-filtro-calibre-n" class="form-select form-select-sm" aria-label="Calibre">
-									<option value="" selected>Selecciona el cultivo</option>
-								</select>
-							</div>
-							<div class="col-12 mb-3 form-group">
-								<label for="agk-filtro-pais-n" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">País</label>
-								<select id="agk-filtro-pais-n" class="form-select form-select-sm" aria-label="País" onchange="traerFiltrosHijosPaisN()">
-									<option value="" selected>Selecciona el país</option>
-								</select>
-							</div>
-							<div class="col-12 mb-3 form-group">
-								<label for="agk-filtro-cliente-n" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Cliente</label>
-								<select id="agk-filtro-cliente-n" class="form-select form-select-sm" aria-label="Cliente">
-									<option value="" selected>Selecciona el país</option>
-								</select>
-							</div>
-							<div class="col-12 mb-3 form-group">
-								<label for="agk-peso-minimo-n" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Peso mínimo</label>
-								<input type="number" name="agk-peso-minimo-n" id="agk-peso-minimo-n" class="form-control form-control-sm" placeholder="Ingrese el peso mínimo"/>
-							</div>
-							<div class="col-12 mb-3 form-group">
-								<label for="agk-peso-maximo-n" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Peso máximo</label>
-								<input type="number" name="agk-peso-maximo-n" id="agk-peso-maximo-n" class="form-control form-control-sm" placeholder="Ingrese el peso máximo"/>
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button id="boton-cerrar-n" type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
-							<i class="bi bi-x me-1" aria-hidden="true"></i>Cerrar
-						</button>
-						<button type="button" class="btn btn-primary btn-sm" onclick="guardarNuevo()">
-							<i class="bi bi-save me-1" aria-hidden="true"></i>Guardar
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="modal fade" id="editar" tabindex="-1" aria-labelledby="editarLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content bordes-redondos">
-					<div class="modal-header">
-						<h5 class="modal-title color-verde-1" id="editarLabel"><b><i class="bi bi-pencil me-1" aria-hidden="true"></i>Editar</b></h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-12 mb-3 form-group">
-								<label for="agk-filtro-cultivo-e" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Cultivo</label>
-								<select id="agk-filtro-cultivo-e" class="form-select form-select-sm" aria-label="Cultivo" onchange="traerFiltrosHijosCultivoN()" disabled>
-									<option value="" selected></option>
-								</select>
-							</div>
-							<div class="col-12 mb-3 form-group">
-								<label for="agk-filtro-variedad-e" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Variedad</label>
-								<select id="agk-filtro-variedad-e" class="form-select form-select-sm" aria-label="Variedad" disabled>
-									<option value="" selected></option>
-								</select>
-							</div>
-							<div class="col-12 mb-3 form-group">
-								<label for="agk-filtro-presentacion-e" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Presentación</label>
-								<select id="agk-filtro-presentacion-e" class="form-select form-select-sm" aria-label="Presentación" disabled>
-									<option value="" selected></option>
-								</select>
-							</div>
-							<div class="col-12 mb-3 form-group">
-								<label for="agk-filtro-calibre-e" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Calibre</label>
-								<select id="agk-filtro-calibre-e" class="form-select form-select-sm" aria-label="Calibre" disabled>
-									<option value="" selected></option>
-								</select>
-							</div>
-							<div class="col-12 mb-3 form-group">
-								<label for="agk-filtro-pais-e" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">País</label>
-								<select id="agk-filtro-pais-e" class="form-select form-select-sm" aria-label="País" onchange="traerFiltrosHijosPaisN()" disabled>
-									<option value="" selected></option>
-								</select>
-							</div>
-							<div class="col-12 mb-3 form-group">
-								<label for="agk-filtro-cliente-e" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Cliente</label>
-								<select id="agk-filtro-cliente-e" class="form-select form-select-sm" aria-label="Cliente" disabled>
-									<option value="" selected></option>
-								</select>
-							</div>
-							<div class="col-12 mb-3 form-group">
-								<label for="agk-peso-minimo-e" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Peso mínimo</label>
-								<input type="number" name="agk-peso-minimo-e" id="agk-peso-minimo-e" class="form-control form-control-sm" placeholder="Ingrese el peso mínimo"/>
-							</div>
-							<div class="col-12 mb-3 form-group">
-								<label for="agk-peso-maximo-e" class="col-form-label col-form-label-sm py-0 color-gris-2 texto-chico">Peso máximo</label>
-								<input type="number" name="agk-peso-maximo-e" id="agk-peso-maximo-e" class="form-control form-control-sm" placeholder="Ingrese el peso máximo"/>
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button id="boton-cerrar-e" type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
-							<i class="bi bi-x me-1" aria-hidden="true"></i>Cerrar
-						</button>
-						<button type="button" class="btn btn-primary btn-sm" onclick="guardarEditar()">
-							<i class="bi bi-save me-1" aria-hidden="true"></i>Guardar
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="modal fade" id="eliminar" tabindex="-1" aria-labelledby="eliminarLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content bordes-redondos">
-					<div class="modal-header">
-						<h5 class="modal-title color-verde-1" id="eliminarLabel"><b><i class="bi bi-x me-1" aria-hidden="true"></i>Eliminar</b></h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-12 my-4">
-								<h6 class="text-center">¿Está seguro de eliminar este rango de pesos?</h6>
-								<input type="hidden" name="agk-index-eliminar" id="agk-index-eliminar" value="">
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button id="boton-cerrar-eliminar" type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">
-							<i class="bi bi-x me-1" aria-hidden="true"></i>Cerrar
-						</button>
-						<button type="button" class="btn btn-danger btn-sm" onclick="guardarEliminar()">
-							<i class="bi bi-x me-1" aria-hidden="true"></i>Eliminar
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
 	</body>
-	<script>
 
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
+	<script>
+		
 		const info = {
-			direccion: 'https://localhost:7158'
+			direccion: 'https://localhost:7039/api/Inventario'
 		}
 		let respuesta;
 		let paginaActual = 1;
 		let porPagina = 20;
 		let cantidadPaginas;
 		let limites;
+		let botonBuscar = true;
+		let botonFiltrar = false;
+
+		function loguear() {
+			$('#spinner-div').show();
+			let loguear = {
+				nombre: $('#input-usuario').val(),
+				clave: $('#input-clave').val(),
+			};
+			$.ajax({
+				url: info.direccion + '/LoguearUsuario',
+				type: 'POST',
+				data: JSON.stringify(loguear),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					if (data[0].respuesta == 0) {
+						window.localStorage.setItem('logueado', false);
+						alert('El usuario o la clave son incorrectos.');
+					}
+					if (data[0].respuesta == 1) {
+						window.localStorage.setItem('logueado', true);
+						alert();
+						$('#contenedor').load('parts/inventario.txt');
+						//alert('Acceso correcto.');
+					}
+				},
+				complete: function () {
+					console.log(window.localStorage.getItem('logueado'));
+					$('#spinner-div').hide();
+				}
+			});
+		}
 
 		$( document ).ready(function() {
 			traerFiltrosIniciales();
 		});
 
-		function traerFiltrosIniciales() {
-			$('#spinner-div').show();	
-			$.ajax({
-				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroCultivo',
-				type: 'POST',
-				data: JSON.stringify(),
-				contentType: 'application/json; charset=utf-8',
-				dataType: 'json',
-				error: function (error) {
-					console.log(error);
-				},
-				success: function (data) {
-					var cadena = '<option value="" selected>Selecciona el cultivo</option>';
-					for (var i = 0; i < data.length; i++) {
-						cadena += '<option value="' + data[i].codI_CULTIVO + '">' + data[i].nomB_CULTIVO + '</option>';							
-					}
-					$('#agk-filtro-cultivo').html(cadena);
-				}
-			});
-			$.ajax({
-				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroPais',
-				type: 'POST',
-				data: JSON.stringify(),
-				contentType: 'application/json; charset=utf-8',
-				dataType: 'json',
-				error: function (error) {
-					console.log(error);
-				},
-				success: function (data) {
-					var cadena = '<option value="" selected>Selecciona el país</option>';
-					for (var i = 0; i < data.length; i++) {
-						cadena += '<option value="' + data[i].codI_PAIS + '">' + data[i].nomB_PAIS + '</option>';							
-					}
-					$('#agk-filtro-pais').html(cadena);
-				}
-			});
+		function verFiltrar() {
+			botonFiltrar = true;
 			
-			var codigoPais = {codiPais: ''};
+			$('.seccion-filtrar').show();
+			$('#boton-filtrar').show();
+			$('#boton-descargar-filtrar').show();
+			$('#boton-ver-buscar').show();
+			
+			$('#seccion-buscar').hide();
+			$('#boton-buscar').hide();
+			$('#boton-descargar-buscar').hide();
+			$('#boton-ver-filtrar').hide();
+		}
+
+		function verBuscar() {
+			botonBuscar = true;
+			
+			$('#seccion-buscar').show();
+			$('#boton-buscar').show();
+			$('#boton-descargar-buscar').show();
+			$('#boton-ver-filtrar').show();
+			
+			$('.seccion-filtrar').hide();
+			$('#boton-filtrar').hide();
+			$('#boton-descargar-filtrar').hide();
+			$('#boton-ver-buscar').hide();
+		}
+
+		function traerFiltrosIniciales() {
+			$('#spinner-div').show();
 			$.ajax({
-				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroCliente',
+				url: info.direccion + '/ObtenerFiltroOperador',
 				type: 'POST',
-				data: JSON.stringify(codigoPais),
+				data: JSON.stringify(),
 				contentType: 'application/json; charset=utf-8',
 				dataType: 'json',
 				error: function (error) {
 					console.log(error);
 				},
 				success: function (data) {
-					var cadena = '<option value="" selected>Selecciona el cliente</option>' +
-						'<option value="*">Para cualquier cliente (*)</option>';
-					for (var i = 0; i < data.length; i++) {
-						cadena += '<option value="' + data[i].codI_CLIENTE + '">' + data[i].nomB_CLIENTE + '</option>';							
+					let cadena = '<option value="" selected>Selecciona el operador</option>';
+					for (let i = 0; i < data.length; i++) {
+						cadena += '<option value="' + data[i].operador + '">' + data[i].operador + '</option>';							
 					}
-					$('#agk-filtro-cliente').html(cadena);
+					$('#filtro-operador').html(cadena);
+				}
+			});
+			$.ajax({
+				url: info.direccion + '/ObtenerFiltroUsuario',
+				type: 'POST',
+				data: JSON.stringify(),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					let cadena = '<option value="" selected>Selecciona el usuario</option>';
+					for (let i = 0; i < data.length; i++) {
+						cadena += '<option value="' + data[i].usuario + '">' + data[i].usuario + '</option>';							
+					}
+					$('#filtro-usuario').html(cadena);
+				}
+			});
+			$.ajax({
+				url: info.direccion + '/ObtenerFiltroSede',
+				type: 'POST',
+				data: JSON.stringify(),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					let cadena = '<option value="" selected>Selecciona la sede</option>';
+					for (let i = 0; i < data.length; i++) {
+						cadena += '<option value="' + data[i].sede + '">' + data[i].sede + '</option>';							
+					}
+					$('#filtro-sede').html(cadena);
+				}
+			});
+			$.ajax({
+				url: info.direccion + '/ObtenerFiltroArea',
+				type: 'POST',
+				data: JSON.stringify(),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					let cadena = '<option value="" selected>Selecciona el área</option>';
+					for (let i = 0; i < data.length; i++) {
+						cadena += '<option value="' + data[i].area + '">' + data[i].area + '</option>';							
+					}
+					$('#filtro-area').html(cadena);
+				}
+			});
+			$.ajax({
+				url: info.direccion + '/ObtenerFiltroProveedor',
+				type: 'POST',
+				data: JSON.stringify(),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					let cadena = '<option value="" selected>Selecciona la opción</option>';
+					for (let i = 0; i < data.length; i++) {
+						cadena += '<option value="' + data[i].proveedor + '">' + data[i].proveedor + '</option>';							
+					}
+					$('#filtro-proveedor').html(cadena);
+				}
+			});
+			$.ajax({
+				url: info.direccion + '/ObtenerFiltroEquipo',
+				type: 'POST',
+				data: JSON.stringify(),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					let cadena = '<option value="" selected>Selecciona la opción</option>';
+					for (let i = 0; i < data.length; i++) {
+						cadena += '<option value="' + data[i].equipo + '">' + data[i].equipo + '</option>';							
+					}
+					$('#filtro-equipo').html(cadena);
 				},
 				complete: function () {
 					$('#spinner-div').hide();
@@ -353,173 +273,33 @@
 			});
 		}
 
-		function traerFiltrosHijosCultivo() {
-			$('#spinner-div').show();
-			var codigoCultivo = {codiCultivo: $('#agk-filtro-cultivo').val()};
-			$.ajax({
-				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroVariedad',
-				type: 'POST',
-				data: JSON.stringify(codigoCultivo),
-				contentType: 'application/json; charset=utf-8',
-				dataType: 'json',
-				error: function (error) {
-					console.log(error);
-				},
-				success: function (data) {
-					var cadena = '<option value="" selected>Selecciona la variedad</option>';
-					for (var i = 0; i < data.length; i++) {
-						cadena += '<option value="' + data[i].codI_VARIEDAD + '">' + data[i].nomB_VARIEDAD + '</option>';							
-					}
-					$('#agk-filtro-variedad').html(cadena);
-				},
-			});
-			$.ajax({
-				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroPresentacion',
-				type: 'POST',
-				data: JSON.stringify(codigoCultivo),
-				contentType: 'application/json; charset=utf-8',
-				dataType: 'json',
-				error: function (error) {
-					console.log(error);
-				},
-				success: function (data) {
-					var cadena = '<option value="" selected>Selecciona la presentación</option>';
-					for (var i = 0; i < data.length; i++) {
-						cadena += '<option value="' + data[i].codI_PRESENTACION + '">' + data[i].nomB_PRESENTACION + '</option>';							
-					}
-					$('#agk-filtro-presentacion').html(cadena);
-				},
-			});
-			$.ajax({
-				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroCalibre',
-				type: 'POST',
-				data: JSON.stringify(codigoCultivo),
-				contentType: 'application/json; charset=utf-8',
-				dataType: 'json',
-				error: function (error) {
-					console.log(error);
-				},
-				success: function (data) {
-					var cadena = '<option value="" selected>Selecciona el calibre</option>' +
-						'<option value="*">Para cualquier calibre (*)</option>';
-					for (var i = 0; i < data.length; i++) {
-						cadena += '<option value="' + data[i].codI_CALIBRE + '">' + data[i].nomB_CALIBRE + '</option>';							
-					}
-					$('#agk-filtro-calibre').html(cadena);
-				},
-				complete: function () {
-					$('#spinner-div').hide();
-				}
-			});
-		}		
-
-		function traerFiltrosHijosPais() {
-			$('#spinner-div').show();
-			var codigoPais = {codiPais: $('#agk-filtro-pais').val()};
-			$.ajax({
-				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroCliente',
-				type: 'POST',
-				data: JSON.stringify(codigoPais),
-				contentType: 'application/json; charset=utf-8',
-				dataType: 'json',
-				error: function (error) {
-					console.log(error);
-				},
-				success: function (data) {
-					var cadena = '<option value="" selected>Selecciona el cliente</option>' +
-						'<option value="*">Para cualquier cliente (*)</option>';
-					for (var i = 0; i < data.length; i++) {
-						cadena += '<option value="' + data[i].codI_CLIENTE + '">' + data[i].nomB_CLIENTE + '</option>';							
-					}
-					$('#agk-filtro-cliente').html(cadena);
-				},
-				complete: function () {
-					$('#spinner-div').hide();
-				}
-			});
+		function eliminar(i) {
+			$('#index-eliminar').val(i);
 		}
 
-		function traerFiltrosHijosCultivoN() {
-			$('#spinner-div').show();
-			var codigoCultivo = {codiCultivo: $('#agk-filtro-cultivo-n').val()};
-			$.ajax({
-				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroVariedad',
-				type: 'POST',
-				data: JSON.stringify(codigoCultivo),
-				contentType: 'application/json; charset=utf-8',
-				dataType: 'json',
-				error: function (error) {
-					console.log(error);
-				},
-				success: function (data) {
-					var cadena = '<option value="" selected>Selecciona la variedad</option>';
-					for (var i = 0; i < data.length; i++) {
-						cadena += '<option value="' + data[i].codI_VARIEDAD + '">' + data[i].nomB_VARIEDAD + '</option>';							
-					}
-					$('#agk-filtro-variedad-n').html(cadena);
-				},
-			});
-			$.ajax({
-				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroPresentacion',
-				type: 'POST',
-				data: JSON.stringify(codigoCultivo),
-				contentType: 'application/json; charset=utf-8',
-				dataType: 'json',
-				error: function (error) {
-					console.log(error);
-				},
-				success: function (data) {
-					var cadena = '<option value="" selected>Selecciona la presentación</option>';
-					for (var i = 0; i < data.length; i++) {
-						cadena += '<option value="' + data[i].codI_PRESENTACION + '">' + data[i].nomB_PRESENTACION + '</option>';							
-					}
-					$('#agk-filtro-presentacion-n').html(cadena);
-				},
-			});
-			$.ajax({
-				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroCalibre',
-				type: 'POST',
-				data: JSON.stringify(codigoCultivo),
-				contentType: 'application/json; charset=utf-8',
-				dataType: 'json',
-				error: function (error) {
-					console.log(error);
-				},
-				success: function (data) {
-					var cadena = '<option value="" selected>Selecciona el calibre</option>' +
-						'<option value="*">Para cualquier calibre (*)</option>';
-					for (var i = 0; i < data.length; i++) {
-						cadena += '<option value="' + data[i].codI_CALIBRE + '">' + data[i].nomB_CALIBRE + '</option>';							
-					}
-					$('#agk-filtro-calibre-n').html(cadena);
-				},
-				complete: function () {
-					$('#spinner-div').hide();
-				}
-			});
-		}		
+		function guardarEliminar() {
+			let i = $('#index-eliminar').val();
+			let eliminar = {
+				id: $('#' + i + '-id').val()
+			};
 
-		function traerFiltrosHijosPaisN() {
-			$('#spinner-div').show();
-			var codigoPais = {codiPais: $('#agk-filtro-pais-n').val()};
 			$.ajax({
-				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroCliente',
+				url: info.direccion + '/EliminarRegistro',
 				type: 'POST',
-				data: JSON.stringify(codigoPais),
+				data: JSON.stringify(eliminar),
 				contentType: 'application/json; charset=utf-8',
 				dataType: 'json',
 				error: function (error) {
 					console.log(error);
 				},
 				success: function (data) {
-					var cadena = '<option value="" selected>Selecciona el cliente</option>' +
-						'<option value="*">Para cualquier cliente (*)</option>';
-					for (var i = 0; i < data.length; i++) {
-						cadena += '<option value="' + data[i].codI_CLIENTE + '">' + data[i].nomB_CLIENTE + '</option>';							
-					}
-					$('#agk-filtro-cliente-n').html(cadena);
+					console.log(data);				
 				},
 				complete: function () {
+					//alert('Registro eliminado correctamente.');
+					$('#boton-cerrar-eliminar').click();
+					if (botonBuscar) $('#boton-buscar').click();
+					if (botonFiltrar) $('#boton-filtrar').click();
 					$('#spinner-div').hide();
 				}
 			});
@@ -527,15 +307,41 @@
 
 		function buscar() {
 			$('#spinner-div').show();
-			var filtro = {
-				codiCliente: $('#agk-filtro-cliente').val(),
-				codiCultivo: $('#agk-filtro-cultivo').val(),
-				codiVariedad: $('#agk-filtro-variedad').val(),
-				codiPresentacion: $('#agk-filtro-presentacion').val(),
-				codiCalibre: $('#agk-filtro-calibre').val()
+			let busqueda = {
+				palabra: $('#input-busqueda').val(),
 			};
 			$.ajax({
-				url: info.direccion + '/api/Mantenimiento/ObtenerListadoMantenimiento',
+				url: info.direccion + '/BuscarInventario',
+				type: 'POST',
+				data: JSON.stringify(busqueda),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					respuesta = data;
+					paginaActual = 1;
+					armarRespuesta();
+				},
+				complete: function () {
+					$('#spinner-div').hide();
+				}
+			});
+		}
+
+		function filtrar() {
+			$('#spinner-div').show();
+			let filtro = {
+				operador: $('#filtro-operador').val(),
+				usuario: $('#filtro-usuario').val(),
+				sede: $('#filtro-sede').val(),
+				area: $('#filtro-area').val(),
+				proveedor: $('#filtro-proveedor').val(),
+				equipo: $('#filtro-equipo').val(),
+			};
+			$.ajax({
+				url: info.direccion + '/FiltrarInventario',
 				type: 'POST',
 				data: JSON.stringify(filtro),
 				contentType: 'application/json; charset=utf-8',
@@ -544,65 +350,123 @@
 					console.log(error);
 				},
 				success: function (data) {
-					console.log(data);
 					respuesta = data;
 					paginaActual = 1;
-					/*var cadena;
-					if(respuesta.length > 0) {
-						cadena = '<div class="table-responsive">' +
-							'<table class="table table-striped table-hover table-sm table-bordered">' +
-								'<thead>' +
-									'<tr>' +
-										'<th class="color-verde-1">País</th>' +
-										'<th class="color-verde-1">Cliente</th>' +
-										'<th class="color-verde-1">Cultivo</th>' +
-										'<th class="color-verde-1">Variedad</th>' +
-										'<th class="color-verde-1">Presentación</th>' +
-										'<th class="color-verde-1">Calibre</th>' +
-										'<th class="color-verde-1">Peso Mín.</th>' +
-										'<th class="color-verde-1">Peso Máx.</th>' +
-										'<th class="color-verde-1">Acciones</th>' +
-									'</tr>' +
-								'</thead>' +
-								'<tbody>';
-
-						for (var i = 0; i < respuesta.length; i++) {
-							cadena += '<tr>' +
-								'<td><div id="' + i + '-nombPais">' + respuesta[i].pais + '</div></td>'+
-								'<td><input id="' + i + '-codiCliente" type="hidden" value="'+ respuesta[i].codI_CLIENTE + '"/><div id="' + i + '-nombCliente">' + respuesta[i].nomB_CLIENTE + '</div></td>'+
-								'<td><input id="' + i + '-codiCultivo" type="hidden" value="'+ respuesta[i].codI_CULTIVO + '"/><div id="' + i + '-nombCultivo">' + respuesta[i].nomB_CULTIVO + '</div></td>'+
-								'<td><input id="' + i + '-codiVariedad" type="hidden" value="'+ respuesta[i].codI_VARIEDAD + '"/><div id="' + i + '-nombVariedad">' + respuesta[i].nomB_VARIEDAD + '</div></td>'+
-								'<td><input id="' + i + '-codiPresentacion" type="hidden" value="'+ respuesta[i].codI_PRESENTACION + '"/><div id="' + i + '-nombPresentacion">' + respuesta[i].nomB_PRESENTACION + '</div></td>'+
-								'<td><input id="' + i + '-codiCalibre" type="hidden" value="'+ respuesta[i].codI_CALIBRE + '"/><div id="' + i + '-nombCalibre">' + respuesta[i].nomB_CALIBRE + '</div></td>'+
-								'<td><div id="' + i + '-pesoMuestraMin">' + respuesta[i].pesO_MUESTRA_MIN + '</div></td>'+
-								'<td><div id="' + i + '-pesoMuestraMax">' + respuesta[i].pesO_MUESTRA_MAX + '</div></td>'+
-								'<td>' +
-									'<button type="button" class="btn btn-success btn-sm me-1" onclick="editar('+ i + ')"  data-bs-toggle="modal" data-bs-target="#editar">' +
-										'<i class="bi bi-pencil" aria-hidden="true"></i>' +
-									'</button>' +
-									'<button type="button" class="btn btn-danger btn-sm"onclick="eliminar('+ i + ')"  data-bs-toggle="modal" data-bs-target="#eliminar">' +
-										'<i class="bi bi-trash" aria-hidden="true"></i>' +
-									'</button>' +
-								'</td>' +
-							'</tr>';															
-						}
-						cadena += '</tbody>' +
-							'</table>' +
-						'</div>';
-					} else {
-						cadena = '<div class="table-responsive">' +
-							'<table class="table table-striped table-hover table-sm table-bordered">' +
-								'<thead>' +
-									'<tr>' +
-										'<th class="text-center color-verde-1">SIN REGISTROS</th>' +
-									'</tr>' +
-								'</thead>' +
-							'</table>' +
-						'</div>';														
-					}
-					$('#listado-rango-pesos').html(cadena);*/
 					armarRespuesta();
 				},
+				complete: function () {
+					$('#spinner-div').hide();
+				}
+			});
+		}
+
+		function descargarBuscar() {
+			$('#spinner-div').show();
+			let busqueda = {
+				palabra: $('#input-busqueda').val(),
+			};
+			$.ajax({
+				url: info.direccion + '/DescargarBuscarInventario',
+				type: 'POST',
+				data: JSON.stringify(busqueda),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'binary',
+				cache: false,
+				xhrFields : {
+					'responseType' : 'blob'
+				},
+                xhr: function () {
+                    let xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState == 2) {
+                            if (xhr.status == 200) {
+                                xhr.responseType = "blob";
+                            } else {
+                                xhr.responseType = "text";
+                            }
+                        }
+                    };
+                    return xhr;
+                },
+				error: function (error) {
+					console.log(error);
+				},
+                success: function (data) {
+					let fileName = 'ReporteInventario.xlsx'
+                    let blob = new Blob([data], { type: "application/octetstream" }); 
+                    let isIE = false || !!document.documentMode;
+                    if (isIE) {
+                        window.navigator.msSaveBlob(blob, fileName);
+                    } else {
+                        let url = window.URL || window.webkitURL;
+                        link = url.createObjectURL(blob);
+                        let a = $("<a />");
+                        a.attr("download", fileName);
+                        a.attr("href", link);
+                        $("body").append(a);
+                        a[0].click();
+                        $("body").remove(a);
+                    }
+                },
+				complete: function () {
+					$('#spinner-div').hide();
+				}
+			});
+		}
+
+		function descargarFiltrar() {
+			$('#spinner-div').show();
+			let filtro = {
+				operador: $('#filtro-operador').val(),
+				usuario: $('#filtro-usuario').val(),
+				sede: $('#filtro-sede').val(),
+				area: $('#filtro-area').val(),
+				proveedor: $('#filtro-proveedor').val(),
+				equipo: $('#filtro-equipo').val(),
+			};
+			$.ajax({
+				url: info.direccion + '/DescargarFiltrarInventario',
+				type: 'POST',
+				data: JSON.stringify(filtro),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'binary',
+				cache: false,
+				xhrFields : {
+					'responseType' : 'blob'
+				},
+                xhr: function () {
+                    let xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState == 2) {
+                            if (xhr.status == 200) {
+                                xhr.responseType = "blob";
+                            } else {
+                                xhr.responseType = "text";
+                            }
+                        }
+                    };
+                    return xhr;
+                },
+				error: function (error) {
+					console.log(error);
+				},
+                success: function (data) {
+					let fileName = 'ReporteInventario.xlsx'
+                    let blob = new Blob([data], { type: "application/octetstream" }); 
+                    let isIE = false || !!document.documentMode;
+                    if (isIE) {
+                        window.navigator.msSaveBlob(blob, fileName);
+                    } else {
+                        let url = window.URL || window.webkitURL;
+                        link = url.createObjectURL(blob);
+                        let a = $("<a />");
+                        a.attr("download", fileName);
+                        a.attr("href", link);
+                        $("body").append(a);
+                        a[0].click();
+                        $("body").remove(a);
+                    }
+                },
 				complete: function () {
 					$('#spinner-div').hide();
 				}
@@ -614,43 +478,80 @@
 			cantidadPaginas = obtenerCantidadPaginas(longitud, porPagina);
 			limites = obtenerLimites(longitud, paginaActual, cantidadPaginas, porPagina);
 			
-			var cadena;
+			let cadena;
 			if(longitud > 0) {
 				cadena = '<div class="table-responsive">' +
 					'<table class="table table-striped table-hover table-sm table-bordered">' +
 						'<thead>' +
 							'<tr>' +
-								'<th class="color-verde-1">País</th>' +
-								'<th class="color-verde-1">Cliente</th>' +
-								'<th class="color-verde-1">Cultivo</th>' +
-								'<th class="color-verde-1">Variedad</th>' +
-								'<th class="color-verde-1">Presentación</th>' +
-								'<th class="color-verde-1">Calibre</th>' +
-								'<th class="color-verde-1">Peso Mín.</th>' +
-								'<th class="color-verde-1">Peso Máx.</th>' +
-								'<th class="color-verde-1">Acciones</th>' +
+								'<th class="color-verde-1"> </th>' +
+								'<th class="color-verde-1">Proveedor</th>' +
+								'<th class="color-verde-1">Operador</th>' +
+								'<th class="color-verde-1">Código empleado</th>' +
+								'<th class="color-verde-1">Usuario</th>' +
+								'<th class="color-verde-1">Ceco</th>' +
+								'<th class="color-verde-1">Línea</th>' +
+								'<th class="color-verde-1">Costo plan sin IGV</th>' +
+								'<th class="color-verde-1">Costo plan con IGV</th>' +
+								'<th class="color-verde-1">Sede</th>' +
+								'<th class="color-verde-1">Área</th>' +
+								'<th class="color-verde-1">Fecha compra inicial</th>' +
+								'<th class="color-verde-1">Fecha último cambio</th>' +
+								'<th class="color-verde-1">Plazo permanencia</th>' +
+								'<th class="color-verde-1">Meses transcurridos</th>' +
+								'<th class="color-verde-1">Meses faltantes</th>' +
+								'<th class="color-verde-1">Código equipo</th>' +
+								'<th class="color-verde-1">Tipo equipo</th>' +
+								'<th class="color-verde-1">Marca</th>' +
+								'<th class="color-verde-1">Modelo</th>' +
+								'<th class="color-verde-1">Equipo</th>' +
+								'<th class="color-verde-1">IMEI</th>' +
+								'<th class="color-verde-1">MAC Address</th>' +
+								'<th class="color-verde-1">Número SIM</th>' +
+								'<th class="color-verde-1">Plan contratado</th>' +
+								'<th class="color-verde-1">Estado equipo</th>' +
+								'<th class="color-verde-1">Renovación por</th>' +
 							'</tr>' +
 						'</thead>' +
 						'<tbody>';
 
-				for (var i = limites[0]; i < limites[1]; i++) {
+				for (let i = limites[0]; i < limites[1]; i++) {
 					cadena += '<tr>' +
-						'<td><div id="' + i + '-nombPais">' + respuesta[i].pais + '</div></td>'+
-						'<td><input id="' + i + '-codiCliente" type="hidden" value="'+ respuesta[i].codI_CLIENTE + '"/><div id="' + i + '-nombCliente">' + respuesta[i].nomB_CLIENTE + '</div></td>'+
-						'<td><input id="' + i + '-codiCultivo" type="hidden" value="'+ respuesta[i].codI_CULTIVO + '"/><div id="' + i + '-nombCultivo">' + respuesta[i].nomB_CULTIVO + '</div></td>'+
-						'<td><input id="' + i + '-codiVariedad" type="hidden" value="'+ respuesta[i].codI_VARIEDAD + '"/><div id="' + i + '-nombVariedad">' + respuesta[i].nomB_VARIEDAD + '</div></td>'+
-						'<td><input id="' + i + '-codiPresentacion" type="hidden" value="'+ respuesta[i].codI_PRESENTACION + '"/><div id="' + i + '-nombPresentacion">' + respuesta[i].nomB_PRESENTACION + '</div></td>'+
-						'<td><input id="' + i + '-codiCalibre" type="hidden" value="'+ respuesta[i].codI_CALIBRE + '"/><div id="' + i + '-nombCalibre">' + respuesta[i].nomB_CALIBRE + '</div></td>'+
-						'<td><div id="' + i + '-pesoMuestraMin">' + respuesta[i].pesO_MUESTRA_MIN + '</div></td>'+
-						'<td><div id="' + i + '-pesoMuestraMax">' + respuesta[i].pesO_MUESTRA_MAX + '</div></td>'+
-						'<td>' +
-							'<button type="button" class="btn btn-success btn-sm me-1" onclick="editar('+ i + ')"  data-bs-toggle="modal" data-bs-target="#editar">' +
+						'<td class="text-center">' +
+							'<button type="button" class="btn btn-success btn-sm mb-1" onclick="editar(' + i + ')"  data-bs-toggle="modal" data-bs-target="#editar">' +
 								'<i class="bi bi-pencil" aria-hidden="true"></i>' +
 							'</button>' +
-							'<button type="button" class="btn btn-danger btn-sm"onclick="eliminar('+ i + ')"  data-bs-toggle="modal" data-bs-target="#eliminar">' +
+							'<button type="button" class="btn btn-danger btn-sm" onclick="eliminar(' + i + ')"  data-bs-toggle="modal" data-bs-target="#eliminar">' +
 								'<i class="bi bi-trash" aria-hidden="true"></i>' +
 							'</button>' +
 						'</td>' +
+						'<input id="' + i + '-id" type="hidden" value="'+ respuesta[i].id + '"/>'+
+						'<td><div id="' + i + '-proveedor">' + respuesta[i].proveedor + '</div></td>' +
+						'<td><div id="' + i + '-operador">' + respuesta[i].operador + '</div></td>' +
+						'<td><div id="' + i + '-codigo_empleado">' + respuesta[i].codigo_empleado + '</div></td>' +
+						'<td><div id="' + i + '-usuario">' + respuesta[i].usuario + '</div></td>' +
+						'<td><div id="' + i + '-ceco">' + respuesta[i].ceco + '</div></td>' +
+						'<td><div id="' + i + '-linea">' + respuesta[i].linea + '</div></td>' +
+						'<td><div id="' + i + '-costo_plan_sin_igv">' + respuesta[i].costo_plan_sin_igv + '</div></td>' +
+						'<td><div id="' + i + '-costo_plan_con_igv">' + respuesta[i].costo_plan_con_igv + '</div></td>' +
+						'<td><div id="' + i + '-sede">' + respuesta[i].sede + '</div></td>' +
+						'<td><div id="' + i + '-area">' + respuesta[i].area + '</div></td>' +
+						'<td><div id="' + i + '-fecha_compra_inicial">' + formatoFechaWeb(respuesta[i].fecha_compra_inicial) + '</div></td>' +
+						'<td><div id="' + i + '-fecha_ultimo_cambio">' + formatoFechaWeb(respuesta[i].fecha_ultimo_cambio) + '</div></td>' +
+						'<td><div id="' + i + '-plazo_permanencia">' + respuesta[i].plazo_permanencia + '</div></td>' +
+						'<td><div id="' + i + '-meses_transcurridos">' + respuesta[i].meses_transcurridos + '</div></td>' +
+						'<td><div id="' + i + '-meses_faltantes">' + respuesta[i].meses_faltantes + '</div></td>' +
+						'<td><div id="' + i + '-codigo_equipo">' + respuesta[i].codigo_equipo + '</div></td>' +
+						'<td><div id="' + i + '-tipo_equipo">' + respuesta[i].tipo_equipo + '</div></td>' +
+						'<td><div id="' + i + '-marca">' + respuesta[i].marca + '</div></td>' +
+						'<td><div id="' + i + '-modelo">' + respuesta[i].modelo + '</div></td>' +
+						'<td><div id="' + i + '-equipo">' + respuesta[i].equipo + '</div></td>' +
+						'<td><div id="' + i + '-imei">' + respuesta[i].imei + '</div></td>' +
+						'<td><div id="' + i + '-mac_address">' + respuesta[i].mac_address + '</div></td>' +
+						'<td><div id="' + i + '-numero_sim">' + respuesta[i].numero_sim + '</div></td>' +
+						'<td><div id="' + i + '-plan_contratado">' + respuesta[i].plan_contratado + '</div></td>' +
+						'<td><div id="' + i + '-estado_equipo">' + respuesta[i].estado_equipo + '</div></td>' +
+						'<td><div id="' + i + '-renovacion_por">' + respuesta[i].renovacion_por + '</div></td>' +
 					'</tr>';															
 				}
 				cadena += '</tbody>' +
@@ -668,19 +569,19 @@
 				'</div>';														
 			}
 			armarPaginacion();
-			$('#listado-rango-pesos').html(cadena);
+			$('#listado-inventario').html(cadena);
 		}
 
 		function armarPaginacion() {
-			var cadena = '<ul class="pagination pagination-sm">';
+			let cadena = '<ul class="pagination pagination-sm">';
 
 			/*let limiteInicio = 1;
 			if ((porPagina/2) <= limiteInicio) limiteInicio = paginaActual;
 			if ((porPagina/2) <= paginaActual) limiteInicio++;
 			let limiteFin = limiteInicio + 5;*/
 		
-			//for (var i = limiteInicio; i <= limiteFin; i++) {	
-			for (var i = 1; i <= cantidadPaginas; i++) {
+			//for (let i = limiteInicio; i <= limiteFin; i++) {	
+			for (let i = 1; i <= cantidadPaginas; i++) {
 				if (i <= 40) {
 					if (paginaActual == i){			
 						cadena += '<li id="pagina-' + i + '" class="page-item active">'+
@@ -702,228 +603,307 @@
 			armarRespuesta();
 		}
 
-		function nuevo() {
-			$('#spinner-div').show();
-			$('#agk-peso-minimo-n').val('');
-			$('#agk-peso-maximo-n').val('');
-			$.ajax({
-				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroCultivo',
-				type: 'POST',
-				data: JSON.stringify(),
-				contentType: 'application/json; charset=utf-8',
-				dataType: 'json',
-				error: function (error) {
-					console.log(error);
-				},
-				success: function (data) {
-					var cadena = '<option value="" selected>Selecciona el cultivo</option>';
-					for (var i = 0; i < data.length; i++) {
-						cadena += '<option value="' + data[i].codI_CULTIVO + '">' + data[i].nomB_CULTIVO + '</option>';							
-					}
-					$('#agk-filtro-cultivo-n').html(cadena);
-					$('#agk-filtro-variedad-n').html('<option value="" selected>Selecciona el cultivo</option>');
-					$('#agk-filtro-presentacion-n').html('<option value="" selected>Selecciona el cultivo</option>');
-					$('#agk-filtro-calibre-n').html('<option value="" selected>Selecciona el cultivo</option>');
-				},
-			});
-			$.ajax({
-				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroPais',
-				type: 'POST',
-				data: JSON.stringify(),
-				contentType: 'application/json; charset=utf-8',
-				dataType: 'json',
-				error: function (error) {
-					console.log(error);
-				},
-				success: function (data) {
-					var cadena = '<option value="" selected>Selecciona el país</option>';
-					for (var i = 0; i < data.length; i++) {
-						cadena += '<option value="' + data[i].codI_PAIS + '">' + data[i].nomB_PAIS + '</option>';							
-					}
-					$('#agk-filtro-pais-n').html(cadena);
-					$('#agk-filtro-cliente-n').html('<option value="" selected>Selecciona el país</option>');
-				}
-			});
-
-			var codigoPais = {codiPais: ''};
-			$.ajax({
-				url: info.direccion + '/api/Mantenimiento/ObtenerFiltroCliente',
-				type: 'POST',
-				data: JSON.stringify(codigoPais),
-				contentType: 'application/json; charset=utf-8',
-				dataType: 'json',
-				error: function (error) {
-					console.log(error);
-				},
-				success: function (data) {
-					var cadena = '<option value="" selected>Selecciona el cliente</option>' +
-						'<option value="*">Para cualquier cliente (*)</option>';
-					for (var i = 0; i < data.length; i++) {
-						cadena += '<option value="' + data[i].codI_CLIENTE + '">' + data[i].nomB_CLIENTE + '</option>';							
-					}
-					$('#agk-filtro-cliente-n').html(cadena);
-				},
-				complete: function () {
-					$('#spinner-div').hide();
-				}
-			});
-		}
-
-		function editar(i) {
-
-			var dataEditar = {
-				codiCliente: $('#' + i + '-codiCliente').val(),
-				codiCultivo: $('#' + i + '-codiCultivo').val(),
-				codiVariedad: $('#' + i + '-codiVariedad').val(),
-				codiPresentacion: $('#' + i + '-codiPresentacion').val(),
-				codiCalibre: $('#' + i + '-codiCalibre').val(),
-				nombPais: $('#' + i + '-nombPais').text(),
-				nombCliente: $('#' + i + '-nombCliente').text(),
-				nombCultivo: $('#' + i + '-nombCultivo').text(),
-				nombVariedad: $('#' + i + '-nombVariedad').text(),
-				nombPresentacion: $('#' + i + '-nombPresentacion').text(),
-				nombCalibre: $('#' + i + '-nombCalibre').text(),
-				pesoMuestraMin: parseInt($('#' + i + '-pesoMuestraMin').text()),
-				pesoMuestraMax: parseInt($('#' + i + '-pesoMuestraMax').text())
-			};
-
-			$('#agk-filtro-pais-e').html('<option value="">' + dataEditar.nombPais + '</option>');
-			$('#agk-filtro-cliente-e').html('<option value="' + dataEditar.codiCliente + '">' + dataEditar.nombCliente + '</option>');
-			$('#agk-filtro-cultivo-e').html('<option value="' + dataEditar.codiCultivo + '">' + dataEditar.nombCultivo + '</option>');
-			$('#agk-filtro-variedad-e').html('<option value="' + dataEditar.codiVariedad + '">' + dataEditar.nombVariedad + '</option>');
-			$('#agk-filtro-presentacion-e').html('<option value="' + dataEditar.codiPresentacion + '">' + dataEditar.nombPresentacion + '</option>');
-			$('#agk-filtro-calibre-e').html('<option value="' + dataEditar.codiCalibre + '">' + dataEditar.nombCalibre + '</option>');
-			$('#agk-filtro-presentacion-e').html('<option value="' + dataEditar.codiPresentacion + '">' + dataEditar.nombPresentacion + '</option>');
-			$('#agk-filtro-calibre-e').html('<option value="' + dataEditar.codiCalibre + '">' + dataEditar.nombCalibre + '</option>');
-			$('#agk-peso-minimo-e').val(dataEditar.pesoMuestraMin);
-			$('#agk-peso-maximo-e').val(dataEditar.pesoMuestraMax);
-			
-			console.log('dataEditar');
-			console.log(dataEditar);
-		}
-
 		function guardarNuevo() {
-			var dataEnvio = {
-				codiCliente: $('#agk-filtro-cliente-n').val(),
-				codiCultivo: $('#agk-filtro-cultivo-n').val(),
-				codiVariedad: $('#agk-filtro-variedad-n').val(),
-				codiPresentacion: $('#agk-filtro-presentacion-n').val(),
-				codiCalibre: $('#agk-filtro-calibre-n').val(),
-				pesoMuestraMin: $('#agk-peso-minimo-n').val(),
-				pesoMuestraMax: $('#agk-peso-maximo-n').val()
+			var nuevo = {
+				proveedor: $('#input-proveedor-nuevo').val(),
+				operador: $('#input-operador-nuevo').val(),
+				codigo_empleado: $('#input-codigo_empleado-nuevo').val(),
+				usuario: $('#input-usuario-nuevo').val(),
+				ceco: $('#input-ceco-nuevo').val(),
+				linea: $('#input-linea-nuevo').val(),
+				costo_plan_sin_igv: $('#input-costo_plan_sin_igv-nuevo').val(),
+				costo_plan_con_igv: $('#input-costo_plan_con_igv-nuevo').val(),
+				sede: $('#input-sede-nuevo').val(),
+				area: $('#input-area-nuevo').val(),
+				fecha_compra_inicial: formatoFechaBD($('#input-fecha_compra_inicial-nuevo').val()),
+				fecha_ultimo_cambio: formatoFechaBD($('#input-fecha_ultimo_cambio-nuevo').val()),
+				plazo_permanencia: parseInt($('#input-plazo_permanencia-nuevo').val()),
+				codigo_equipo: $('#input-codigo_equipo-nuevo').val(),
+				tipo_equipo: $('#input-tipo_equipo-nuevo').val(),
+				marca: $('#input-marca-nuevo').val(),
+				modelo: $('#input-modelo-nuevo').val(),
+				equipo: $('#input-equipo-nuevo').val(),
+				imei: $('#input-imei-nuevo').val(),
+				mac_address: $('#input-mac_address-nuevo').val(),
+				numero_sim: $('#input-numero_sim-nuevo').val(),
+				plan_contratado: $('#input-plan_contratado-nuevo').val(),
+				estado_equipo: $('#input-estado_equipo-nuevo').val(),
+				renovacion_por: $('#input-renovacion_por-nuevo').val(),
 			};
 
-			console.log('dataEnvio');
-			console.log(dataEnvio);
-
-			if (dataEnvio.codiCliente == '' 
-				|| dataEnvio.codiCultivo == '' 
-				|| dataEnvio.codiVariedad == '' 
-				|| dataEnvio.codiPresentacion == '' 
-				|| dataEnvio.codiCalibre == '' 
-				|| dataEnvio.pesoMuestraMin == ''
-				|| dataEnvio.pesoMuestraMax == '') {			
-				alert('Es necesario llenar todos los campos');
+			if (nuevo.proveedor == '' 
+				|| nuevo.operador == '') {			
+				alert('Es necesario llenar todos los campos.');
 			
 			} else {
 				$.ajax({
-					url: info.direccion + '/api/Mantenimiento/NuevoMantenimientoRangoPesos',
+					url: info.direccion + '/NuevoRegistro',
 					type: 'POST',
-					data: JSON.stringify(dataEnvio),
+					data: JSON.stringify(nuevo),
 					contentType: 'application/json; charset=utf-8',
 					dataType: 'json',
 					error: function (error) {
 						console.log(error);
 					},
 					success: function (data) {
-						console.log('guardarNuevo');	
-						console.log(data);
-						
-						if (data[0].respuesta == 0) {
-							alert('El registro ya existe');
-						} /* else {
-							alert('Registro guardado con éxito');
-						}*/
+						alert('Registro nuevo realizado correctamente.');
 					},
-					complete: function () {					
-						$('#boton-cerrar-n').click();
-						$('#boton-buscar').click();
+					complete: function () {	
+						$('#boton-cerrar-nuevo').click();
+						if (botonBuscar) $('#boton-buscar').click();
+						if (botonFiltrar) $('#boton-filtrar').click();
+
+						$('#input-proveedor-nuevo').val('');
+						$('#input-operador-nuevo').val('');
+						$('#input-codigo_empleado-nuevo').val('');
+						$('#input-usuario-nuevo').val('');
+						$('#input-ceco-nuevo').val('');
+						$('#input-linea-nuevo').val('');
+						$('#input-costo_plan_sin_igv-nuevo').val('');
+						$('#input-costo_plan_con_igv-nuevo').val('');
+						$('#input-sede-nuevo').val('');
+						$('#input-area-nuevo').val('');
+						$('#input-fecha_compra_inicial-nuevo').val('');
+						$('#input-fecha_ultimo_cambio-nuevo').val('');
+						$('#input-plazo_permanencia-nuevo').val('');
+						$('#input-codigo_equipo-nuevo').val('');
+						$('#input-tipo_equipo-nuevo').val('');
+						$('#input-marca-nuevo').val('');
+						$('#input-modelo-nuevo').val('');
+						$('#input-equipo-nuevo').val('');
+						$('#input-imei-nuevo').val('');
+						$('#input-mac_address-nuevo').val('');
+						$('#input-numero_sim-nuevo').val('');
+						$('#input-plan_contratado-nuevo').val('');
+						$('#input-estado_equipo-nuevo').val('');
+						$('#input-renovacion_por-nuevo').val('');
+
 						$('#spinner-div').hide();
 					}
 				});
 			}
 		}
 
+		let idEditar;
+		function editar(i) {
+			let dataEditar = {
+				proveedor: $('#' + i + '-proveedor').text(),
+				operador: $('#' + i + '-operador').text(),
+				codigo_empleado: $('#' + i + '-codigo_empleado').text(),
+				usuario: $('#' + i + '-usuario').text(),
+				ceco: $('#' + i + '-ceco').text(),
+				linea: $('#' + i + '-linea').text(),
+				costo_plan_sin_igv: $('#' + i + '-costo_plan_sin_igv').text(),
+				costo_plan_con_igv: $('#' + i + '-costo_plan_con_igv').text(),
+				sede: $('#' + i + '-sede').text(),
+				area: $('#' + i + '-area').text(),
+				fecha_compra_inicial: $('#' + i + '-fecha_compra_inicial').text(),
+				fecha_ultimo_cambio: $('#' + i + '-fecha_ultimo_cambio').text(),
+				plazo_permanencia: $('#' + i + '-plazo_permanencia').text(),
+				codigo_equipo: $('#' + i + '-codigo_equipo').text(),
+				tipo_equipo: $('#' + i + '-tipo_equipo').text(),
+				marca: $('#' + i + '-marca').text(),
+				modelo: $('#' + i + '-modelo').text(),
+				equipo: $('#' + i + '-equipo').text(),
+				imei: $('#' + i + '-imei').text(),
+				mac_address: $('#' + i + '-mac_address').text(),
+				numero_sim: $('#' + i + '-numero_sim').text(),
+				plan_contratado: $('#' + i + '-plan_contratado').text(),
+				estado_equipo: $('#' + i + '-estado_equipo').text(),
+				renovacion_por: $('#' + i + '-renovacion_por').text(),
+			};
+			//indiceEditar = i;
+
+			idEditar = parseInt($('#' + i + '-id').val());
+
+			//alert(parseInt($('#' + i + '-id').val()));
+
+			$('#input-proveedor-editar').val(dataEditar.proveedor);
+			$('#input-operador-editar').val(dataEditar.operador);
+			$('#input-codigo_empleado-editar').val(dataEditar.codigo_empleado);
+			$('#input-usuario-editar').val(dataEditar.usuario);
+			$('#input-ceco-editar').val(dataEditar.ceco);
+			$('#input-linea-editar').val(dataEditar.linea);
+			$('#input-costo_plan_sin_igv-editar').val(dataEditar.costo_plan_sin_igv);
+			$('#input-costo_plan_con_igv-editar').val(dataEditar.costo_plan_con_igv);
+			$('#input-sede-editar').val(dataEditar.sede);
+			$('#input-area-editar').val(dataEditar.area);
+			$('#input-fecha_compra_inicial-editar').val(dataEditar.fecha_compra_inicial);
+			$('#input-fecha_ultimo_cambio-editar').val(dataEditar.fecha_ultimo_cambio);
+			$('#input-plazo_permanencia-editar').val(dataEditar.plazo_permanencia);
+			$('#input-codigo_equipo-editar').val(dataEditar.codigo_equipo);
+			$('#input-tipo_equipo-editar').val(dataEditar.tipo_equipo);
+			$('#input-marca-editar').val(dataEditar.marca);
+			$('#input-modelo-editar').val(dataEditar.modelo);
+			$('#input-equipo-editar').val(dataEditar.equipo);
+			$('#input-imei-editar').val(dataEditar.imei);
+			$('#input-mac_address-editar').val(dataEditar.mac_address);
+			$('#input-numero_sim-editar').val(dataEditar.numero_sim);
+			$('#input-plan_contratado-editar').val(dataEditar.plan_contratado);
+			$('#input-estado_equipo-editar').val(dataEditar.estado_equipo);
+			$('#input-renovacion_por-editar').val(dataEditar.renovacion_por);
+		}
+		
 		function guardarEditar() {
-			var dataEnvio = {
-				codiCliente: $('#agk-filtro-cliente-e').val(),
-				codiCultivo: $('#agk-filtro-cultivo-e').val(),
-				codiVariedad: $('#agk-filtro-variedad-e').val(),
-				codiPresentacion: $('#agk-filtro-presentacion-e').val(),
-				codiCalibre: $('#agk-filtro-calibre-e').val(),
-				pesoMuestraMin: $('#agk-peso-minimo-e').val(),
-				pesoMuestraMax: $('#agk-peso-maximo-e').val()
-			};	
-
-			console.log('dataEnvio');
-			console.log(dataEnvio);
-
-			$.ajax({
-				url: info.direccion + '/api/Mantenimiento/EditarMantenimientoRangoPesos',
-				type: 'POST',
-				data: JSON.stringify(dataEnvio),
-				contentType: 'application/json; charset=utf-8',
-				dataType: 'json',
-				error: function (error) {
-					console.log(error);
-				},
-				success: function (data) {
-					console.log(data);				
-				},
-				complete: function () {					
-					$('#boton-cerrar-e').click();
-					$('#boton-buscar').click();
-					$('#spinner-div').hide();
-				}
-			});
-		}
-
-		function eliminar(i) {
-			$('#agk-index-eliminar').val(i);
-		}
-
-		function guardarEliminar() {
-			var i = $('#agk-index-eliminar').val();
-
-			var dataEliminar = {
-				codiCliente: $('#' + i + '-codiCliente').val(),
-				codiCultivo: $('#' + i + '-codiCultivo').val(),
-				codiVariedad: $('#' + i + '-codiVariedad').val(),
-				codiPresentacion: $('#' + i + '-codiPresentacion').val(),
-				codiCalibre: $('#' + i + '-codiCalibre').val(),
+			var editar = {
+				id: idEditar,
+				proveedor: $('#input-proveedor-editar').val(),
+				operador: $('#input-operador-editar').val(),
+				codigo_empleado: $('#input-codigo_empleado-editar').val(),
+				usuario: $('#input-usuario-editar').val(),
+				ceco: $('#input-ceco-editar').val(),
+				linea: $('#input-linea-editar').val(),
+				costo_plan_sin_igv: $('#input-costo_plan_sin_igv-editar').val(),
+				costo_plan_con_igv: $('#input-costo_plan_con_igv-editar').val(),
+				sede: $('#input-sede-editar').val(),
+				area: $('#input-area-editar').val(),
+				fecha_compra_inicial: formatoFechaBD($('#input-fecha_compra_inicial-editar').val()),
+				fecha_ultimo_cambio: formatoFechaBD($('#input-fecha_ultimo_cambio-editar').val()),
+				plazo_permanencia: parseInt($('#input-plazo_permanencia-editar').val()),
+				codigo_equipo: $('#input-codigo_equipo-editar').val(),
+				tipo_equipo: $('#input-tipo_equipo-editar').val(),
+				marca: $('#input-marca-editar').val(),
+				modelo: $('#input-modelo-editar').val(),
+				equipo: $('#input-equipo-editar').val(),
+				imei: $('#input-imei-editar').val(),
+				mac_address: $('#input-mac_address-editar').val(),
+				numero_sim: $('#input-numero_sim-editar').val(),
+				plan_contratado: $('#input-plan_contratado-editar').val(),
+				estado_equipo: $('#input-estado_equipo-editar').val(),
+				renovacion_por: $('#input-renovacion_por-editar').val(),
 			};
 
+			if (editar.proveedor == '' 
+				|| editar.operador == '') {			
+				alert('Es necesario llenar todos los campos.');
+			
+			} else {
+				$.ajax({
+					url: info.direccion + '/EditarRegistro',
+					type: 'POST',
+					data: JSON.stringify(editar),
+					contentType: 'application/json; charset=utf-8',
+					dataType: 'json',
+					error: function (error) {
+						console.log(error);
+					},
+					success: function (data) {
+						alert('Registro editado realizado correctamente.');
+					},
+					complete: function () {	
+						$('#boton-cerrar-editar').click();
+						if (botonBuscar) $('#boton-buscar').click();
+						if (botonFiltrar) $('#boton-filtrar').click();
+
+						$('#input-proveedor-editar').val('');
+						$('#input-operador-editar').val('');
+						$('#input-codigo_empleado-editar').val('');
+						$('#input-usuario-editar').val('');
+						$('#input-ceco-editar').val('');
+						$('#input-linea-editar').val('');
+						$('#input-costo_plan_sin_igv-editar').val('');
+						$('#input-costo_plan_con_igv-editar').val('');
+						$('#input-sede-editar').val('');
+						$('#input-area-editar').val('');
+						$('#input-fecha_compra_inicial-editar').val('');
+						$('#input-fecha_ultimo_cambio-editar').val('');
+						$('#input-plazo_permanencia-editar').val('');
+						$('#input-codigo_equipo-editar').val('');
+						$('#input-tipo_equipo-editar').val('');
+						$('#input-marca-editar').val('');
+						$('#input-modelo-editar').val('');
+						$('#input-equipo-editar').val('');
+						$('#input-imei-editar').val('');
+						$('#input-mac_address-editar').val('');
+						$('#input-numero_sim-editar').val('');
+						$('#input-plan_contratado-editar').val('');
+						$('#input-estado_equipo-editar').val('');
+						$('#input-renovacion_por-editar').val('');
+
+						$('#spinner-div').hide();
+					}
+				});
+			}
+		}
+
+
+		let uploadedFile;
+		let fileData=[{}];
+
+		$('#uploadFile').on('change', () => {
+			uploadedFile = event.target.files[0];
+		});
+
+		$('#subirInventario').on('click', () => {
+			XLSX.utils.json_to_sheet(fileData, 'output.xlsx');
+			if (uploadedFile) {
+				let fileReader = new FileReader();
+				fileReader.readAsBinaryString(uploadedFile);
+				fileReader.onload = (event) => {
+					let fileData = event.target.result;
+					let workbook = XLSX.read(fileData,{type:'binary'});
+					workbook.SheetNames.forEach(sheet => {
+						let rowData = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheet]);
+						for (let i = 0; i < rowData.length; i++) {
+							rowData[i].fecha_compra_inicial = formatoFechaBD(rowData[i].fecha_compra_inicial);
+							rowData[i].fecha_ultimo_cambio = formatoFechaBD(rowData[i].fecha_ultimo_cambio);
+							rowData[i].plazo_permanencia = parseInt(rowData[i].plazo_permanencia);
+						}
+						let jsonData = JSON.stringify(rowData,undefined,4);
+						subir(jsonData);
+					});
+				}
+			}
+		});
+
+		/*document.getElementById('uploadFile').addEventListener('change', (event) => {
+			uploadedFile = event.target.files[0];
+		});
+		
+		document.getElementById('subirInventario').addEventListener('click', () => {
+			XLSX.utils.json_to_sheet(fileData, 'output.xlsx');
+			if (uploadedFile) {
+				let fileReader = new FileReader();
+				fileReader.readAsBinaryString(uploadedFile);
+				fileReader.onload = (event) => {
+					let fileData = event.target.result;
+					let workbook = XLSX.read(fileData,{type:'binary'});
+					workbook.SheetNames.forEach(sheet => {
+						let rowData = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheet]);
+						for (let i = 0; i < rowData.length; i++) {
+							rowData[i].fecha_compra_inicial = formatoFechaBD(rowData[i].fecha_compra_inicial);
+							rowData[i].fecha_ultimo_cambio = formatoFechaBD(rowData[i].fecha_ultimo_cambio);
+							rowData[i].plazo_permanencia = parseInt(rowData[i].plazo_permanencia);
+						}
+						let jsonData = JSON.stringify(rowData,undefined,4);
+						subir(jsonData);
+					});
+				}
+			}
+		});*/
+
+		function subir(json) {
+			$('#spinner-div').show();
 			$.ajax({
-				url: info.direccion + '/api/Mantenimiento/EliminarMantenimientoRangoPesos',
+				url: info.direccion + '/SubirInventario',
 				type: 'POST',
-				data: JSON.stringify(dataEliminar),
+				data: json,
 				contentType: 'application/json; charset=utf-8',
 				dataType: 'json',
 				error: function (error) {
 					console.log(error);
 				},
 				success: function (data) {
-					console.log(data);				
+					console.log(data);
 				},
-				complete: function () {					
-					$('#boton-cerrar-eliminar').click();
-					$('#boton-buscar').click();
+				complete: function () {
+					alert('Inventario subido correctamente.');
+					$('#boton-cerrar-subir').click();
+					if (botonBuscar) $('#boton-buscar').click();
+					if (botonFiltrar) $('#boton-filtrar').click();
 					$('#spinner-div').hide();
 				}
 			});
-
-			console.log('dataEliminar');
-			console.log(dataEliminar);
 		}
 
 		function obtenerCantidadPaginas(longitud, porPagina) {
@@ -953,6 +933,17 @@
 			return resultado;
 		}
 
+
+		const formatoFechaBD = (fecha) => {
+			var resultado = fecha.split('/');
+			return resultado[2] + '-' + resultado[1]  + '-' + resultado[0];
+		}
+
+		const formatoFechaWeb = (fecha) => {
+			var arreglo = fecha.split('T');
+			var resultado = arreglo[0].split('-');
+			return resultado[2] + '/' + resultado[1]  + '/' + resultado[0];
+		}
 
 	</script>
 </html>
