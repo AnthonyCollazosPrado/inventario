@@ -1,8 +1,8 @@
-const info = {
-    //direccion: 'https://localhost:7039/api/Inventario', //[DEV]
-    direccion: 'http://192.168.0.36:7070/api/Inventario', //[QA]
+/*const info = {
+    direccion: 'https://localhost:7039/api/Inventario', //[DEV]
+    //direccion: 'http://192.168.0.36:7070/api/Inventario', //[QA]
     version: '?v=7'
-}
+}*/
 let respuesta;
 let paginaActual = 1;
 let porPagina = 20;
@@ -11,39 +11,7 @@ let limites;
 let botonBuscar = true;
 let botonFiltrar = false;
 
-function loguear() {
-    $('#spinner-div').show();
-    let loguear = {
-        nombre: $('#input-usuario').val(),
-        clave: $('#input-clave').val(),
-    };
-    $.ajax({
-        url: info.direccion + '/LoguearUsuario',
-        type: 'POST',
-        data: JSON.stringify(loguear),
-        contentType: 'application/json; charset=utf-8',
-        dataType: 'json',
-        error: function (error) {
-            console.log(error);
-        },
-        success: function (data) {
-            if (data[0].respuesta == 0) {
-                window.localStorage.setItem('logueado', false);
-                alert('El usuario o la clave son incorrectos.');
-            }
-            if (data[0].respuesta == 1) {
-                window.localStorage.setItem('logueado', true);
-                window.location.href = 'inventario.html';
-                //$('#contenedor').load('parts/inventario.html' + info.version);
-                //alert('Acceso correcto.');
-            }
-        },
-        complete: function () {
-            console.log(window.localStorage.getItem('logueado'));
-            $('#spinner-div').hide();
-        }
-    });
-}
+
 
 $( document ).ready(function() {
     console.log(window.localStorage.getItem('logueado'));
@@ -640,11 +608,8 @@ function editar(i) {
         estado_equipo: $('#' + i + '-estado_equipo').text(),
         renovacion_por: $('#' + i + '-renovacion_por').text(),
     };
-    //indiceEditar = i;
 
     idEditar = parseInt($('#' + i + '-id').val());
-
-    //alert(parseInt($('#' + i + '-id').val()));
 
     $('#input-proveedor-editar').val(dataEditar.proveedor);
     $('#input-operador-editar').val(dataEditar.operador);
@@ -773,42 +738,46 @@ $('#subirInventario').on('click', () => {
             workbook.SheetNames.forEach(sheet => {
                 let rowData = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheet]);
                 for (let i = 0; i < rowData.length; i++) {
+                    rowData[i].proveedor = String(rowData[i].proveedor);
+                    rowData[i].operador = String(rowData[i].operador);
+                    rowData[i].codigo_empleado = String(rowData[i].codigo_empleado);
+                    rowData[i].usuario = String(rowData[i].usuario);
+                    rowData[i].ceco = String(rowData[i].ceco);
+                    rowData[i].linea = String(rowData[i].linea);
+                    rowData[i].costo_plan_sin_igv = String(rowData[i].costo_plan_sin_igv);
+                    rowData[i].costo_plan_con_igv = String(rowData[i].costo_plan_con_igv);
+                    rowData[i].sede = String(rowData[i].sede);
+                    rowData[i].area = String(rowData[i].area);
                     rowData[i].fecha_compra_inicial = formatoFechaBD(rowData[i].fecha_compra_inicial);
                     rowData[i].fecha_ultimo_cambio = formatoFechaBD(rowData[i].fecha_ultimo_cambio);
                     rowData[i].plazo_permanencia = parseInt(rowData[i].plazo_permanencia);
+                    rowData[i].codigo_equipo = String(rowData[i].codigo_equipo);
+                    rowData[i].tipo_equipo = String(rowData[i].tipo_equipo);
+                    rowData[i].marca = String(rowData[i].marca);
+                    rowData[i].modelo = String(rowData[i].modelo);
+                    rowData[i].equipo = String(rowData[i].equipo);
+                    rowData[i].imei = String(rowData[i].imei);
+                    rowData[i].mac_address = String(rowData[i].mac_address);
+                    rowData[i].numero_sim = String(rowData[i].numero_sim);
+                    rowData[i].plan_contratado = String(rowData[i].plan_contratado);
+                    rowData[i].estado_equipo = String(rowData[i].estado_equipo);
+                    rowData[i].renovacion_por = String(rowData[i].renovacion_por);
+
+                    /*rowData[i].linea = String(rowData[i].linea);
+                    rowData[i].fecha_compra_inicial = formatoFechaBD(rowData[i].fecha_compra_inicial);
+                    rowData[i].fecha_ultimo_cambio = formatoFechaBD(rowData[i].fecha_ultimo_cambio);
+                    rowData[i].plazo_permanencia = parseInt(rowData[i].plazo_permanencia);*/
                 }
+                console.log('rowData');
+                console.log(rowData);
                 let jsonData = JSON.stringify(rowData,undefined,4);
+                console.log('jsonData');
+                console.log(jsonData);
                 subir(jsonData);
             });
         }
     }
 });
-
-/*document.getElementById('uploadFile').addEventListener('change', (event) => {
-    uploadedFile = event.target.files[0];
-});
-
-document.getElementById('subirInventario').addEventListener('click', () => {
-    XLSX.utils.json_to_sheet(fileData, 'output.xlsx');
-    if (uploadedFile) {
-        let fileReader = new FileReader();
-        fileReader.readAsBinaryString(uploadedFile);
-        fileReader.onload = (event) => {
-            let fileData = event.target.result;
-            let workbook = XLSX.read(fileData,{type:'binary'});
-            workbook.SheetNames.forEach(sheet => {
-                let rowData = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheet]);
-                for (let i = 0; i < rowData.length; i++) {
-                    rowData[i].fecha_compra_inicial = formatoFechaBD(rowData[i].fecha_compra_inicial);
-                    rowData[i].fecha_ultimo_cambio = formatoFechaBD(rowData[i].fecha_ultimo_cambio);
-                    rowData[i].plazo_permanencia = parseInt(rowData[i].plazo_permanencia);
-                }
-                let jsonData = JSON.stringify(rowData,undefined,4);
-                subir(jsonData);
-            });
-        }
-    }
-});*/
 
 function subir(json) {
     $('#spinner-div').show();
@@ -819,9 +788,11 @@ function subir(json) {
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         error: function (error) {
+            console.log('error');
             console.log(error);
         },
         success: function (data) {
+            console.log('data');
             console.log(data);
         },
         complete: function () {
@@ -837,9 +808,6 @@ function subir(json) {
 function obtenerCantidadPaginas(longitud, porPagina) {
     let resultado = longitud / porPagina;
     let cantidadPaginas = Math.ceil(resultado);
-
-    console.log('obtenerCantidadPaginas');
-    console.log(cantidadPaginas);
     return cantidadPaginas;
 }
 
@@ -855,8 +823,5 @@ function obtenerLimites(longitud, numeroPagina, cantidadPaginas, porPagina) {
     limiteSuperior = limiteInferior + modulo;
     }
     let resultado = [limiteInferior, limiteSuperior];
-    console.log('obtenerLimites');
-    console.log(resultado);
-
     return resultado;
 }

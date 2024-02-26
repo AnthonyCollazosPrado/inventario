@@ -85,6 +85,40 @@
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
-	<script src="js/scripts.js?v=7"></script>
-	<script src="js/formats.js?v=7"></script>
+	<script src="js/constans.js?v=9"></script>
+	<script>
+		function loguear() {
+			$('#spinner-div').show();
+			let loguear = {
+				nombre: $('#input-usuario').val(),
+				clave: $('#input-clave').val(),
+			};
+			$.ajax({
+				url: info.direccion + '/LoguearUsuario',
+				type: 'POST',
+				data: JSON.stringify(loguear),
+				contentType: 'application/json; charset=utf-8',
+				dataType: 'json',
+				error: function (error) {
+					console.log(error);
+				},
+				success: function (data) {
+					if (data[0].respuesta == 0) {
+						window.localStorage.setItem('logueado', false);
+						alert('El usuario o la clave son incorrectos.');
+					}
+					if (data[0].respuesta == 1) {
+						window.localStorage.setItem('logueado', true);
+						window.location.href = 'inventario.html';
+						//$('#contenedor').load('parts/inventario.html' + info.version);
+						//alert('Acceso correcto.');
+					}
+				},
+				complete: function () {
+					console.log(window.localStorage.getItem('logueado'));
+					$('#spinner-div').hide();
+				}
+			});
+		}
+	</script>
 </html>
