@@ -1,8 +1,3 @@
-/*const info = {
-    direccion: 'https://localhost:7039/api/Inventario', //[DEV]
-    //direccion: 'http://192.168.0.36:7070/api/Inventario', //[QA]
-    version: '?v=7'
-}*/
 let respuesta;
 let paginaActual = 1;
 let porPagina = 20;
@@ -11,25 +6,17 @@ let limites;
 let botonBuscar = true;
 let botonFiltrar = false;
 
-
-
 $( document ).ready(function() {
-    console.log(window.localStorage.getItem('logueado'));
-    //if (window.localStorage.getItem('logueado') == true) {
-        //$('#contenedor').load('parts/inventario.html' + info.version);
-    traerFiltrosIniciales();
-    /*} else {
-        $('#contenedor').load('parts/logueo.html' + info.version);
-    }*/
+    if (window.localStorage.getItem('logueado') == 1) {
+        traerFiltrosIniciales();
+    } else {
+        window.location.href = 'index.html';
+    }
 });
 
 function cerrarSesion() {
-    $('#spinner-div').show();
-    window.localStorage.setItem('logueado', false);
-    console.log(window.localStorage.getItem('logueado'));
+    window.localStorage.setItem('logueado', 0);
     window.location.href = 'index.html';
-    //$('#contenedor').load('parts/logueo.html' + info.version);
-    $('#spinner-div').hide();
 }
 
 function verFiltrar() {
@@ -63,7 +50,7 @@ function verBuscar() {
 function traerFiltrosIniciales() {
     $('#spinner-div').show();
     $.ajax({
-        url: info.direccion + '/ObtenerFiltroOperador',
+        url: info.inventario + '/ObtenerFiltroOperador',
         type: 'POST',
         data: JSON.stringify(),
         contentType: 'application/json; charset=utf-8',
@@ -80,7 +67,7 @@ function traerFiltrosIniciales() {
         }
     });
     $.ajax({
-        url: info.direccion + '/ObtenerFiltroUsuario',
+        url: info.inventario + '/ObtenerFiltroUsuario',
         type: 'POST',
         data: JSON.stringify(),
         contentType: 'application/json; charset=utf-8',
@@ -97,7 +84,7 @@ function traerFiltrosIniciales() {
         }
     });
     $.ajax({
-        url: info.direccion + '/ObtenerFiltroSede',
+        url: info.inventario + '/ObtenerFiltroSede',
         type: 'POST',
         data: JSON.stringify(),
         contentType: 'application/json; charset=utf-8',
@@ -114,7 +101,7 @@ function traerFiltrosIniciales() {
         }
     });
     $.ajax({
-        url: info.direccion + '/ObtenerFiltroArea',
+        url: info.inventario + '/ObtenerFiltroArea',
         type: 'POST',
         data: JSON.stringify(),
         contentType: 'application/json; charset=utf-8',
@@ -131,7 +118,7 @@ function traerFiltrosIniciales() {
         }
     });
     $.ajax({
-        url: info.direccion + '/ObtenerFiltroProveedor',
+        url: info.inventario + '/ObtenerFiltroProveedor',
         type: 'POST',
         data: JSON.stringify(),
         contentType: 'application/json; charset=utf-8',
@@ -148,7 +135,7 @@ function traerFiltrosIniciales() {
         }
     });
     $.ajax({
-        url: info.direccion + '/ObtenerFiltroEquipo',
+        url: info.inventario + '/ObtenerFiltroEquipo',
         type: 'POST',
         data: JSON.stringify(),
         contentType: 'application/json; charset=utf-8',
@@ -180,7 +167,7 @@ function guardarEliminar() {
     };
 
     $.ajax({
-        url: info.direccion + '/EliminarRegistro',
+        url: info.inventario + '/EliminarRegistro',
         type: 'POST',
         data: JSON.stringify(eliminar),
         contentType: 'application/json; charset=utf-8',
@@ -207,7 +194,7 @@ function buscar() {
         palabra: $('#input-busqueda').val(),
     };
     $.ajax({
-        url: info.direccion + '/BuscarInventario',
+        url: info.inventario + '/BuscarInventario',
         type: 'POST',
         data: JSON.stringify(busqueda),
         contentType: 'application/json; charset=utf-8',
@@ -226,6 +213,64 @@ function buscar() {
     });
 }
 
+function buscarEmpleadoNuevo() {
+    $('#spinner-div').show();
+    let busqueda = {
+        codigo_empleado: $('#input-buscar_empleado-nuevo').val(),
+    };
+    $.ajax({
+        url: info.empleado + '/BuscarEmpleado',
+        type: 'POST',
+        data: JSON.stringify(busqueda),
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        error: function (error) {
+            console.log(error);
+        },
+        success: function (data) {
+            if (data.length > 0) {
+                $('#input-codigo_empleado-nuevo').val(data[0].codI_EMPLEADO);
+                $('#input-usuario-nuevo').val(data[0].nomB_EMPLEADO);
+                $('#input-ceco-nuevo').val(data[0].numE_CCOSTO);
+            } else {
+                alert('El código no existe');
+            }
+        },
+        complete: function () {
+            $('#spinner-div').hide();
+        }
+    });
+}
+
+function buscarEmpleadoEditar() {
+    $('#spinner-div').show();
+    let busqueda = {
+        codigo_empleado: $('#input-buscar_empleado-editar').val(),
+    };
+    $.ajax({
+        url: info.empleado + '/BuscarEmpleado',
+        type: 'POST',
+        data: JSON.stringify(busqueda),
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        error: function (error) {
+            console.log(error);
+        },
+        success: function (data) {
+            if (data.length > 0) {
+                $('#input-codigo_empleado-editar').val(data[0].codI_EMPLEADO);
+                $('#input-usuario-editar').val(data[0].nomB_EMPLEADO);
+                $('#input-ceco-editar').val(data[0].numE_CCOSTO);
+            } else {
+                alert('El código no existe');
+            }
+        },
+        complete: function () {
+            $('#spinner-div').hide();
+        }
+    });
+}
+
 function filtrar() {
     $('#spinner-div').show();
     let filtro = {
@@ -237,7 +282,7 @@ function filtrar() {
         equipo: $('#filtro-equipo').val(),
     };
     $.ajax({
-        url: info.direccion + '/FiltrarInventario',
+        url: info.inventario + '/FiltrarInventario',
         type: 'POST',
         data: JSON.stringify(filtro),
         contentType: 'application/json; charset=utf-8',
@@ -262,7 +307,7 @@ function descargarBuscar() {
         palabra: $('#input-busqueda').val(),
     };
     $.ajax({
-        url: info.direccion + '/DescargarBuscarInventario',
+        url: info.inventario + '/DescargarBuscarInventario',
         type: 'POST',
         data: JSON.stringify(busqueda),
         contentType: 'application/json; charset=utf-8',
@@ -321,7 +366,7 @@ function descargarFiltrar() {
         equipo: $('#filtro-equipo').val(),
     };
     $.ajax({
-        url: info.direccion + '/DescargarFiltrarInventario',
+        url: info.inventario + '/DescargarFiltrarInventario',
         type: 'POST',
         data: JSON.stringify(filtro),
         contentType: 'application/json; charset=utf-8',
@@ -470,13 +515,6 @@ function armarRespuesta() {
 
 function armarPaginacion() {
     let cadena = '<ul class="pagination pagination-sm">';
-
-    /*let limiteInicio = 1;
-    if ((porPagina/2) <= limiteInicio) limiteInicio = paginaActual;
-    if ((porPagina/2) <= paginaActual) limiteInicio++;
-    let limiteFin = limiteInicio + 5;*/
-
-    //for (let i = limiteInicio; i <= limiteFin; i++) {	
     for (let i = 1; i <= cantidadPaginas; i++) {
         if (i <= 40) {
             if (paginaActual == i){			
@@ -527,13 +565,35 @@ function guardarNuevo() {
         renovacion_por: $('#input-renovacion_por-nuevo').val(),
     };
 
-    if (nuevo.proveedor == '' 
-        || nuevo.operador == '') {			
-        alert('Es necesario llenar todos los campos.');
-    
+    if (nuevo.proveedor == '' ||
+        nuevo.operador == '' ||
+        nuevo.codigo_empleado == '' ||
+        nuevo.usuario == '' ||
+        nuevo.ceco == '' ||
+        nuevo.linea == '' ||
+        nuevo.costo_plan_sin_igv == '' ||
+        nuevo.costo_plan_con_igv == '' ||
+        nuevo.sede == '' ||
+        nuevo.area == '' ||
+        nuevo.fecha_compra_inicial == '' ||
+        nuevo.fecha_ultimo_cambio == '' ||
+        nuevo.plazo_permanencia == '' ||
+        nuevo.codigo_equipo == '' ||
+        nuevo.tipo_equipo == '' ||
+        nuevo.marca == '' ||
+        nuevo.modelo == '' ||
+        nuevo.equipo == '' ||
+        nuevo.imei == '' ||
+        nuevo.mac_address == '' ||
+        nuevo.numero_sim == '' ||
+        nuevo.plan_contratado == '' ||
+        nuevo.estado_equipo == '' ||
+        nuevo.renovacion_por == '') {			
+            alert('Es necesario llenar todos los campos.');
+
     } else {
         $.ajax({
-            url: info.direccion + '/NuevoRegistro',
+            url: info.inventario + '/NuevoRegistro',
             type: 'POST',
             data: JSON.stringify(nuevo),
             contentType: 'application/json; charset=utf-8',
@@ -672,7 +732,7 @@ function guardarEditar() {
     
     } else {
         $.ajax({
-            url: info.direccion + '/EditarRegistro',
+            url: info.inventario + '/EditarRegistro',
             type: 'POST',
             data: JSON.stringify(editar),
             contentType: 'application/json; charset=utf-8',
@@ -723,7 +783,7 @@ function guardarEditar() {
 let uploadedFile;
 let fileData=[{}];
 
-$('#uploadFile').on('change', () => {
+$('#uploadFile').on('change', (event) => {
     uploadedFile = event.target.files[0];
 });
 
@@ -762,11 +822,6 @@ $('#subirInventario').on('click', () => {
                     rowData[i].plan_contratado = String(rowData[i].plan_contratado);
                     rowData[i].estado_equipo = String(rowData[i].estado_equipo);
                     rowData[i].renovacion_por = String(rowData[i].renovacion_por);
-
-                    /*rowData[i].linea = String(rowData[i].linea);
-                    rowData[i].fecha_compra_inicial = formatoFechaBD(rowData[i].fecha_compra_inicial);
-                    rowData[i].fecha_ultimo_cambio = formatoFechaBD(rowData[i].fecha_ultimo_cambio);
-                    rowData[i].plazo_permanencia = parseInt(rowData[i].plazo_permanencia);*/
                 }
                 console.log('rowData');
                 console.log(rowData);
@@ -782,7 +837,7 @@ $('#subirInventario').on('click', () => {
 function subir(json) {
     $('#spinner-div').show();
     $.ajax({
-        url: info.direccion + '/SubirInventario',
+        url: info.inventario + '/SubirInventario',
         type: 'POST',
         data: json,
         contentType: 'application/json; charset=utf-8',
@@ -798,6 +853,7 @@ function subir(json) {
         complete: function () {
             alert('Inventario subido correctamente.');
             $('#boton-cerrar-subir').click();
+            $('#uploadFile').val('');
             if (botonBuscar) $('#boton-buscar').click();
             if (botonFiltrar) $('#boton-filtrar').click();
             $('#spinner-div').hide();
